@@ -48,7 +48,7 @@ Fluxum is developed by a single developer and also serves as a **portfolio proje
 
 ## 2. Scope
 
-### ✅ In — V1 (first usable version)
+### In — V1 (first usable version)
 
 - Authentication with email/password and Google login
 - Annual budget table with editable rows
@@ -59,7 +59,7 @@ Fluxum is developed by a single developer and also serves as a **portfolio proje
 - Monthly balance indicator (surplus / deficit)
 - Currency binding on every monetary value
 
-### 🔜 Out — V2 and beyond
+### Out — V2 and beyond
 
 - Dark mode
 - Currency selector (e.g. switch to EUR)
@@ -71,7 +71,7 @@ Fluxum is developed by a single developer and also serves as a **portfolio proje
 - Copy previous year's entries to new year
 - Internationalization (i18n) — Portuguese, Italian and English initially
 
-### 🚫 Out of scope by conscious decision
+### Out of scope by conscious decision, at least in a first moment
 
 - Bank API integration (Brazilian Open Finance System)
 - Native mobile application (iOS / Android)
@@ -305,5 +305,3 @@ Fluxum is conceived as a continuously evolving product — V1 is the starting po
 | 7 | Mobile read-only table view | V3+ |
 
 ---
-
-*This document was built collaboratively using ProductBuddy, an interactive PRD facilitation assistant.*
