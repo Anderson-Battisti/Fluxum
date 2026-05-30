@@ -1,0 +1,5 @@
+.card_header_container
+{
+    display: flex;
+    flex-direction: column;
+}
