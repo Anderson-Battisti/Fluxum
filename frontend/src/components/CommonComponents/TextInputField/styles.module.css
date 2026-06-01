@@ -46,7 +46,7 @@
     transform: translateY( -50% );  /* Discounts the label height, to centralize it inside the input */
     transition: all 0.3s;
     left: 10px;
-    color: var( --gray-500 );
+    color: var( --orange-500 );
     font-size: 16px;
     pointer-events: none;
 }
