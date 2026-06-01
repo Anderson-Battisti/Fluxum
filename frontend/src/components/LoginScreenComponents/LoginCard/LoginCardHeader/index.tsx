@@ -9,8 +9,8 @@ export function LoginCardHeader()
 
     return (
         <div className={ styles.card_header_container }>
-            <label className={ styles.title_label }>{ APP_NAME }</label>
-            <label className={ styles.subtitle_label }>{ t( 'login_card_subtitle' ) }</label>
+            <span className={ styles.title_span }>{ APP_NAME }</span>
+            <span className={ styles.subtitle_span }>{ t( "login_card_subtitle" ) }</span>
         </div>
     )
 }

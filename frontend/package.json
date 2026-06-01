@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/plus-jakarta-sans": "^5.2.8",
     "i18next": "^26.3.0",
     "i18next-http-backend": "^4.0.0",
     "react": "^19.2.6",

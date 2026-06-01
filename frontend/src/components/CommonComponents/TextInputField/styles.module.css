@@ -1,0 +1,52 @@
+.div
+{
+    position: relative;
+    display: flex;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.div:focus-within .floating_label,
+.input:not(:placeholder-shown) + .floating_label
+{
+    top: 0;
+    font-size: 15px;
+    background-color: var( --white );
+    padding: 5px;
+    color: var( --primary );
+}
+
+.div:focus-within .input
+{
+    border: 1px solid var( --primary );
+}
+
+.input
+{
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 15px;
+    outline: none;
+    background-color: var( --white );
+    border: 1px solid var( --primary );
+}
+
+.input:-webkit-autofill
+{
+    -webkit-box-shadow: 0 0 0px 1000px var(--white) inset;;
+}
+
+.floating_label
+{
+    position: absolute;
+    top: 50%;                       /* Puts the label down                                           */
+    transform: translateY( -50% );  /* Discounts the label height, to centralize it inside the input */
+    transition: all 0.3s;
+    left: 10px;
+    color: var( --gray-500 );
+    font-size: 16px;
+    pointer-events: none;
+}
