@@ -1,10 +1,11 @@
 // @ts-ignore
 import styles from './styles.module.css';
 import { LoginCardHeader } from './LoginCardHeader';
-import { TextInputField } from "../../common/TextInputField";
-import { useTranslation } from "react-i18next";
-import { Button } from "../../common/Button";
-import {ButtonVariants} from "../../common/Button/ButtonVariants";
+import { TextInputField  } from "../../common/TextInputField";
+import { useTranslation  } from "react-i18next";
+import { Button          } from "../../common/Button";
+import { ButtonVariants  } from "../../common/Button/ButtonVariants";
+import { Separator       } from "./Separator";
 
 export function LoginCard()
 {
@@ -16,8 +17,9 @@ export function LoginCard()
             <TextInputField type={ "email" } placeholder={ "Email" } floatingLabel={ "Email" }  />
             <TextInputField type={ "password" } placeholder={ t( "password" ) } floatingLabel={ t( "password" ) } />
             <Button label={ t( "login-screen:login" ) } variant={ ButtonVariants.PRIMARY } />
-            {/*<Separator />
-            <GoogleLoginButton />
+            {/* <LoginFailedMessage />*/}
+            <Separator text={ t( "login-screen:or" ) } />
+            {/*<GoogleLoginButton />
             <FooterInfo />*/}
         </div>
     )

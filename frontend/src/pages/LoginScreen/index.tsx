@@ -1,5 +1,6 @@
-import { LoginCard } from '../../components/LoginScreenComponents/LoginCard';
+// @ts-ignore
 import styles from './styles.module.css';
+import { LoginCard } from '../../components/LoginScreenComponents/LoginCard';
 
 export function LoginScreen()
 {
