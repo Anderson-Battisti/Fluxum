@@ -10,8 +10,6 @@
 {
     cursor: default;
     font-size: 25px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 500;
     background: linear-gradient( to right, var( --primary ), var( --violet ) );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
