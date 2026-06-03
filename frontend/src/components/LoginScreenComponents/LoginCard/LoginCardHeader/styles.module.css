@@ -9,7 +9,7 @@
 .title_span
 {
     cursor: default;
-    font-size: 25px;
+    font-size: 35px;
     background: linear-gradient( to right, var( --primary ), var( --violet ) );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

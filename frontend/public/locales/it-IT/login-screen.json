@@ -1,5 +1,6 @@
 {
     "login_card_subtitle" : "La tua guida alle finanze personali",
     "login": "Accedi",
-    "or": "Oppure"
+    "or": "Oppure",
+    "continue_with_google": "Accedi con Google"
 }
