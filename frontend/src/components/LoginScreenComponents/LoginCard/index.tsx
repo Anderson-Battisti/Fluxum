@@ -1,12 +1,13 @@
 // @ts-ignore
 import styles from './styles.module.css';
-import {LoginCardHeader} from './LoginCardHeader';
-import {TextInputField} from "../../common/TextInputField";
-import {useTranslation} from "react-i18next";
-import {Button} from "../../common/Button";
-import {ButtonVariants} from "../../common/Button/ButtonVariants";
-import {Separator} from "./Separator";
-import {FcGoogle} from "react-icons/fc";
+import { LoginCardHeader } from './LoginCardHeader';
+import { TextInputField  } from "../../common/TextInputField";
+import { useTranslation  } from "react-i18next";
+import { Button          } from "../../common/Button";
+import { ButtonVariants  } from "../../common/Button/ButtonVariants";
+import { Separator       } from "./Separator";
+import { FcGoogle        } from "react-icons/fc";
+import { LoginCardFooter } from "./LoginCardFooter";
 
 export function LoginCard()
 {
@@ -21,7 +22,7 @@ export function LoginCard()
             {/* <LoginFailedMessage />*/}
             <Separator text={ t( "login-screen:or" ) } />
             <Button label={ t( "login-screen:continue_with_google" ) } variant={ ButtonVariants.SECONDARY } icon={ <FcGoogle /> } />
-            {/*<LoginCardFooter />*/}
+            <LoginCardFooter />
         </div>
     )
 }
