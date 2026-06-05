@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import com.fluxum.model.enums.OnboardingStage;
+
 @Entity
 public class User
 {
@@ -38,4 +40,7 @@ public class User
     
     @Column( nullable = false )
     private LocalDateTime updatedAt;
+    
+    @Column( nullable = false )
+    private OnboardingStage onboardingStage = OnboardingStage.NOT_STARTED;
 }
