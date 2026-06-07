@@ -8,12 +8,13 @@ interface ButtonProps
     label: string;
     variant: ButtonVariants;
     icon?: ReactNode;
+    onClickButton: () => void;
 }
 
-export function Button( { label, variant, icon }: ButtonProps )
+export function Button( { label, variant, icon, onClickButton }: ButtonProps )
 {
     return (
-        <button className={ `${ styles.button } ${ styles[ variant ] }` } >
+        <button className={ `${ styles.button } ${ styles[ variant ] }` } onClick={ onClickButton } >
             { icon && icon }
             <span>{ label }</span>
         </button>

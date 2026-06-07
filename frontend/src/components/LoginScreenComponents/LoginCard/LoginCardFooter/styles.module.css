@@ -7,7 +7,7 @@
     gap: 5px;
 }
 
-.sign_up_label
+.sign_up_span
 {
     color: var( --blue );
     text-decoration: underline;

@@ -7,12 +7,13 @@ interface TextInputFieldProps
     type: "text" | "email" | "password"
     placeholder?: string
     floatingLabel?: string
+    animatedField?: boolean
 }
 
-export function TextInputField( { label, type, placeholder, floatingLabel }: TextInputFieldProps )
+export function TextInputField( { label, type, placeholder, floatingLabel, animatedField }: TextInputFieldProps )
 {
     return (
-        <div className={ styles.div } >
+        <div className={ ` ${ styles.div } ${ animatedField ? styles.animated_field : '' }` } >
             
             { label && <label>{ label }</label> }
             
