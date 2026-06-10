@@ -7,6 +7,8 @@ export enum ToastVariant
 
 export interface Toast
 {
+    id: string;
     message: string;
     variant: ToastVariant;
+    isLeaving: boolean;
 }
