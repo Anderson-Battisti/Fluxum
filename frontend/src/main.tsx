@@ -8,10 +8,12 @@ import '../styles/theme.css';
 import App from './App';
 import './i18n';
 import {ToastProvider} from "./contexts/ToastContext";
+import {ToastContainer} from "./components/common/Toast/ToastContainer";
 
 createRoot( document.getElementById( 'root' ) ! ).render(
   <StrictMode>
       <ToastProvider>
+          <ToastContainer />
           <App />
       </ToastProvider>
   </StrictMode>,

@@ -1,10 +1,11 @@
 import {createContext, ReactNode, useState} from "react";
 import {Toast, ToastVariant} from "../components/common/Toast/Toast";
 
-interface ToastContextValue
+export interface ToastContextValue
 {
     toasts: Toast[];
     addToast: ( message: string, variant?: ToastVariant ) => void;
+    removeToast: ( id: string ) => void;
 }
 
 export const ToastContext = createContext<ToastContextValue | null>( null );
@@ -24,9 +25,14 @@ export function ToastProvider( { children }: ToastProviderProps )
         
         setToasts( prevState => [ ...prevState, newToast ] );
     }
+    
+    function removeToast( id: string )
+    {
+        setToasts( prevState => prevState.filter( toast => toast.id !== id ) )
+    }
      
     return(
-        <ToastContext.Provider value={ { toasts, addToast } } >
+        <ToastContext.Provider value={ { toasts, addToast, removeToast } } >
             { children }
         </ToastContext.Provider>
     )

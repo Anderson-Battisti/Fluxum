@@ -10,10 +10,14 @@ import {FcGoogle} from "react-icons/fc";
 import {LoginCardFooter} from "./LoginCardFooter";
 import {useState} from "react";
 import {CardModes} from "./CardMode";
+import {useToast} from "../../../hooks/useToast";
+import {ToastVariant} from "../../common/Toast/Toast";
+import {ToastContextValue} from "../../../contexts/ToastContext";
 
 export function LoginCard()
 {
     const { t } = useTranslation( ["common", "login-screen"] );
+    const { addToast }: ToastContextValue = useToast();
     
     const [ mode,     setMode     ] = useState<CardModes>( CardModes.LOGIN_MODE );
     const [ email,    setEmail    ] = useState<string>( "" );
@@ -26,6 +30,8 @@ export function LoginCard()
     
     function handleMainButtonClick()
     {
+        addToast( "Toast Message", ToastVariant.SUCCESS );
+        
         if ( mode === CardModes.LOGIN_MODE )
         {
             if ( !email )
