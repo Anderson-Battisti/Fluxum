@@ -1,3 +1,7 @@
 {
-    "password": "Senha"
+    "password": "Senha",
+    "info": "Info",
+    "success" : "Sucesso",
+    "warning": "Atenção",
+    "error": "Erro"
 }

@@ -19,7 +19,7 @@ export function ToastProvider( { children }: ToastProviderProps )
 {
     const [ toasts, setToasts ] = useState<Toast[]>( [] );
     
-    function addToast( message: string, variant: ToastVariant = ToastVariant.SUCCESS )
+    function addToast( message: string, variant: ToastVariant = ToastVariant.INFO )
     {
         const newToast: Toast = { id: crypto.randomUUID(), message, variant, isLeaving: false }
         

@@ -1,0 +1,81 @@
+.container
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    min-height: 76px;
+    width: 380px;
+    background-color: var( --gray-50 );
+    border-radius: 4px;
+}
+
+.info::before,
+.success::before,
+.warning::before,
+.error::before
+{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    border-radius: 8px;
+}
+
+.info::before
+{
+    background-color: var( --blue );
+}
+
+.success::before
+{
+    background-color: var( --green-500 );
+}
+
+.warning::before
+{
+    background-color: var( --orange-500 );
+}
+
+.error::before
+{
+    background-color: var( --red-500 );
+}
+
+.icon
+{
+    flex-shrink: 0;
+}
+
+.icon_text_div
+{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.text_div
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.title
+{
+    font-size: 18px;
+}
+
+.text
+{
+    font-size: 14px;
+}
+
+.close_toast_icon
+{
+    flex-shrink: 0;
+    cursor: pointer;
+}
