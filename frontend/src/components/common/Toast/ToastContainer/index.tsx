@@ -3,6 +3,7 @@ import styles from './styles.module.css';
 import {useToast} from "../../../../hooks/useToast";
 import {ToastContextValue} from "../../../../contexts/ToastContext";
 import {Toast} from "../index";
+import {AnimatePresence} from "framer-motion";
 
 export function ToastContainer()
 {
@@ -10,7 +11,9 @@ export function ToastContainer()
     
     return(
         <div className={ styles.container }>
-            { toasts.map( toast => ( <Toast toast={ toast } onDismiss={ () => removeToast( toast.id ) } /> ) ) }
+            <AnimatePresence>
+                { toasts.map( toast => ( <Toast key={ toast.id } toast={ toast } onDismiss={ () => removeToast( toast.id ) } /> ) ) }
+            </AnimatePresence>
         </div>
     )
 }

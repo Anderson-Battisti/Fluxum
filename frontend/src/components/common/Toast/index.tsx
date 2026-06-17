@@ -1,9 +1,10 @@
 // @ts-ignore
 import styles from './styles.module.css';
-import {Toast as ToastType, ToastVariant} from '../../common/Toast/Toast';
-import {useTranslation} from "react-i18next";
-import {BsBugFill, BsCheckCircleFill, BsExclamationCircleFill, BsInfoCircleFill, BsXLg} from "react-icons/bs";
-import {ReactNode} from "react";
+import { Toast as ToastType, ToastVariant } from '../../common/Toast/Toast';
+import { useTranslation } from "react-i18next";
+import { BsBugFill, BsCheckCircleFill, BsExclamationCircleFill, BsInfoCircleFill, BsXLg} from "react-icons/bs";
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface ToastProps
 {
@@ -30,7 +31,13 @@ export function Toast( { toast, onDismiss }: ToastProps )
                                toast.variant === ToastVariant.ERROR   ? t( "error"   ) : 
                                                                         t( "info"    );
     return(
-        <div className={ `${ styles.container } ${ toastVariantCssClass }` }>
+        <motion.div layout
+                    className={ `${ styles.container } ${ toastVariantCssClass }` } 
+                    initial={ { opacity: 0, y: -20, } }
+                    animate={ { opacity: 1, y: 0, } }
+                    exit={ { opacity: 0, y: -20, } }
+                    transition={ { layout: { duration: 0.35, ease: "easeOut" }, duration: 0.5 } }>
+            
             <div className={ styles.icon_text_div }>
                 <span className={ styles.icon /* span needed here to apply a css class on it and guarantee a min size */ }>
                     { toastIcon }
@@ -41,6 +48,7 @@ export function Toast( { toast, onDismiss }: ToastProps )
                 </div>
             </div>
             <BsXLg className={ styles.close_toast_icon } />
-        </div>
+        
+        </motion.div>
     )
 }

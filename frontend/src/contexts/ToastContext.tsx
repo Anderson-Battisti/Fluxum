@@ -23,6 +23,8 @@ export function ToastProvider( { children }: ToastProviderProps )
     {
         const newToast: Toast = { id: crypto.randomUUID(), message, variant, isLeaving: false }
         
+        setTimeout( () => { removeToast( newToast.id ) }, 5500 );
+        
         setToasts( prevState => [ ...prevState, newToast ] );
     }
     
