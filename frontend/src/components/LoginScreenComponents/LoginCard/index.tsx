@@ -30,8 +30,6 @@ export function LoginCard()
     
     function handleMainButtonClick()
     {
-        addToast( "Toast Message", ToastVariant.SUCCESS );
-        
         if ( mode === CardModes.LOGIN_MODE )
         {
             if ( !email )

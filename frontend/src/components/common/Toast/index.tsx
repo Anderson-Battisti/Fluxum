@@ -47,7 +47,7 @@ export function Toast( { toast, onDismiss }: ToastProps )
                     <label className={ styles.text }>{ toast.message }</label>
                 </div>
             </div>
-            <BsXLg className={ styles.close_toast_icon } />
+            <BsXLg className={ styles.close_toast_icon } onClick={ () => onDismiss() } />
         
         </motion.div>
     )
