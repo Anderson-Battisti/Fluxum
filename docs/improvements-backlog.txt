@@ -1,0 +1,4 @@
+~Improvements Backlog List
+
+Toast: Adjust toast container to not create a toast again when the message is equals to another toast already in the exhibition container
+Auth Service: Develop a job to delete expired tokens rows from time to time to make refresh_token table not too big

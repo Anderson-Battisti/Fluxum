@@ -30,12 +30,29 @@ export function LoginCard()
     
     function handleMainButtonClick()
     {
-        if ( mode === CardModes.LOGIN_MODE )
+        if ( mode === CardModes.VERIFYING_MODE )
         {
-            if ( !email )
+            // todo check code
+        }
+        
+        if ( !email.includes( "." ) || !email.includes( "@" ) )
+        {
+            addToast( t( "login-screen:provide_a_valid_email_warning" ), ToastVariant.WARNING ); return;
+        }
+        
+        else if ( mode === CardModes.LOGIN_MODE )
+        {
+            if ( !password )
             {
-                
+                addToast( t( "login-screen:you_need_to_provide_the_email_and_password_to_log_in" ), ToastVariant.WARNING ); return;
             }
+            
+            // todo hit server side
+        }
+        
+        else if ( mode === CardModes.SIGN_UP_MODE )
+        {
+            
         }
         // todo fields validation
         
@@ -45,9 +62,9 @@ export function LoginCard()
     return (
         <div className={ styles.container } >
             <LoginCardHeader />
-            <TextInputField type={ "email" } placeholder={ "Email" } floatingLabel={ "Email" }  />
-            <TextInputField type={ "password" } placeholder={ t( "password" ) } floatingLabel={ t( "password" ) } />
-            { mode === CardModes.SIGN_UP_MODE && <TextInputField type={ "password" } floatingLabel={ t( "login-screen:confirm_password" ) } animatedField={ true } /> }
+            <TextInputField type={ "email" } placeholder={ "Email" } floatingLabel={ "Email" } onTextChange={ setEmail } />
+            <TextInputField type={ "password" } placeholder={ t( "password" ) } floatingLabel={ t( "password" ) } onTextChange={ setPassword } />
+            { mode === CardModes.SIGN_UP_MODE && <TextInputField type={ "password" } floatingLabel={ t( "login-screen:confirm_password" ) } animatedField={ true } onTextChange={ setConfirmationPassword } /> }
             <Button label={ mainButtonLabel } variant={ ButtonVariants.PRIMARY } onClickButton={ handleMainButtonClick } />
             {/* <LoginFailedMessage />*/}
             <Separator text={ t( "login-screen:or" ) } />

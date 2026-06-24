@@ -1,5 +1,5 @@
-import {createContext, ReactNode, useState} from "react";
-import {Toast, ToastVariant} from "../components/common/Toast/Toast";
+import { createContext, type ReactNode, useState } from "react";
+import { type Toast, ToastVariant } from "../components/common/Toast/Toast.js";
 
 export interface ToastContextValue
 {
