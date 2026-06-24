@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { APP_NAME } from '../../../../config/app';
-// @ts-ignore
 import styles from './styles.module.css';
 
 export function LoginCardHeader()

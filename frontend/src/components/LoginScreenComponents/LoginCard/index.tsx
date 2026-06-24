@@ -1,18 +1,17 @@
-// @ts-ignore
 import styles from './styles.module.css';
-import {LoginCardHeader} from './LoginCardHeader';
-import {TextInputField} from "../../common/TextInputField";
-import {useTranslation} from "react-i18next";
-import {Button} from "../../common/Button";
-import {ButtonVariants} from "../../common/Button/ButtonVariants";
-import {Separator} from "./Separator";
-import {FcGoogle} from "react-icons/fc";
-import {LoginCardFooter} from "./LoginCardFooter";
-import {useState} from "react";
-import {CardModes} from "./CardMode";
-import {useToast} from "../../../hooks/useToast";
-import {ToastVariant} from "../../common/Toast/Toast";
-import {ToastContextValue} from "../../../contexts/ToastContext";
+import { LoginCardHeader } from './LoginCardHeader';
+import { TextInputField } from "../../common/TextInputField";
+import { useTranslation } from "react-i18next";
+import { Button } from "../../common/Button";
+import { ButtonVariants } from "../../common/Button/ButtonVariants";
+import { Separator } from "./Separator";
+import { FcGoogle } from "react-icons/fc";
+import { LoginCardFooter } from "./LoginCardFooter";
+import { useState } from "react";
+import { CardModes } from "./CardMode";
+import { useToast } from "../../../hooks/useToast";
+import { ToastVariant } from "../../common/Toast/Toast";
+import { ToastContextValue } from "../../../contexts/ToastContext";
 
 export function LoginCard()
 {

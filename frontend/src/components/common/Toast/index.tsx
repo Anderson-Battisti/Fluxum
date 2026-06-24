@@ -1,8 +1,7 @@
-// @ts-ignore
 import styles from './styles.module.css';
 import { Toast as ToastType, ToastVariant } from '../../common/Toast/Toast';
 import { useTranslation } from "react-i18next";
-import { BsBugFill, BsCheckCircleFill, BsExclamationCircleFill, BsInfoCircleFill, BsXLg} from "react-icons/bs";
+import { BsBugFill, BsCheckCircleFill, BsExclamationCircleFill, BsInfoCircleFill, BsXLg } from "react-icons/bs";
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
 

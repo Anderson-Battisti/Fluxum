@@ -1,8 +1,7 @@
-// @ts-ignore
 import styles from './styles.module.css';
-import {useTranslation} from "react-i18next";
-import {CardModes} from "../CardMode";
-import {JSX} from "react";
+import { useTranslation } from "react-i18next";
+import { CardModes } from "../CardMode";
+import { JSX } from "react";
 
 interface LoginCardFooterProps
 {

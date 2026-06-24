@@ -1,9 +1,8 @@
-// @ts-ignore
 import styles from './styles.module.css';
-import {useToast} from "../../../../hooks/useToast";
-import {ToastContextValue} from "../../../../contexts/ToastContext";
-import {Toast} from "../index";
-import {AnimatePresence} from "framer-motion";
+import { useToast } from "../../../../hooks/useToast";
+import { ToastContextValue } from "../../../../contexts/ToastContext";
+import { Toast } from "../index";
+import { AnimatePresence } from "framer-motion";
 
 export function ToastContainer()
 {
