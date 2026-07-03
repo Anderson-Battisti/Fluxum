@@ -8,10 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+/** @author: Anderson Battisti **/
 @Entity
 public class RefreshToken
 {
     public RefreshToken() {}
+    
+    public RefreshToken( User user, String tokenHash, LocalDateTime expiryDate )
+    {
+        this.user       = user;
+        this.tokenHash  = tokenHash;
+        this.expiryDate = expiryDate;
+        this.revoked    = false;
+    }
     
     @Id
     private Long id;
@@ -28,4 +37,19 @@ public class RefreshToken
     
     @Column( nullable = false )
     private boolean revoked = false;
+    
+    public LocalDateTime getExpiryDate()
+    {
+        return expiryDate;
+    }
+    
+    public boolean isRevoked()
+    {
+        return revoked;
+    }
+    
+    public void setRevoked( boolean revoked )
+    {
+        this.revoked = revoked;
+    }
 }
