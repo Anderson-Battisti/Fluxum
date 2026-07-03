@@ -6,6 +6,7 @@ import com.fluxum.model.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/** @author: Anderson Battisti **/
 @Repository
 public interface RefreshTokenRepository
     extends

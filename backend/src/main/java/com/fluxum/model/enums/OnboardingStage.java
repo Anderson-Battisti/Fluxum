@@ -1,5 +1,6 @@
 package com.fluxum.model.enums;
 
+/** @author: Anderson Battisti **/
 public enum OnboardingStage
 {
     NOT_STARTED              ( 0 ),

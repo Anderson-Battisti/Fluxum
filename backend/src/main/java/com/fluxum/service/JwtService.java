@@ -10,9 +10,10 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-/* The application must have locally a file called application-local.properties containing the secret and the 
-*  token expiration time. application-local.properties MUST NOT BE VERSIONED!!! */
-
+/** The application must have locally a file called application-local.properties containing the secret and the 
+*  token expiration time. application-local.properties MUST NOT BE VERSIONED!!! 
+*
+* @author: Anderson Battisti **/
 @Service
 public class JwtService
 {
