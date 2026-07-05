@@ -14,7 +14,10 @@ import com.fluxum.repository.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-/** @author: Anderson Battisti **/
+/**
+ * 
+ * @author Anderson Battisti
+ */
 @Service
 public class RefreshTokenService 
 {

@@ -1,6 +1,9 @@
 package com.fluxum.exceptions;
 
-/** @author: Anderson Battisti **/
+/**
+ * 
+ * @author Anderson Battisti
+ */
 public class TokenNotValidException
     extends 
         RuntimeException

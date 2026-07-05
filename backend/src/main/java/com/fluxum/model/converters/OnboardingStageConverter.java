@@ -6,7 +6,10 @@ import jakarta.persistence.Converter;
 
 import com.fluxum.model.enums.OnboardingStage;
 
-/** @author: Anderson Battisti **/
+/**
+ * 
+ * @author Anderson Battisti
+ */
 @Converter( autoApply = true )
 public class OnboardingStageConverter
     implements

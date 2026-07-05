@@ -4,11 +4,11 @@ package com.fluxum.exceptions;
  * 
  * @author Anderson Battisti
  */
-public class RefreshTokenNotFoundException
+public class AuthenticationFailedException
     extends 
         RuntimeException
 {
-    public RefreshTokenNotFoundException( String message )
+    public AuthenticationFailedException( String message )
     {
         super( message );
     }

@@ -11,7 +11,10 @@ import jakarta.validation.constraints.Size;
 
 import com.fluxum.model.enums.OnboardingStage;
 
-/** @author: Anderson Battisti **/
+/**
+ * 
+ * @author Anderson Battisti
+ */
 @Entity
 public class User
 {
