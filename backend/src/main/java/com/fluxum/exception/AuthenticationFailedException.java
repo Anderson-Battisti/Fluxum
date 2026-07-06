@@ -1,4 +1,4 @@
-package com.fluxum.exceptions;
+package com.fluxum.exception;
 
 /**
  * 

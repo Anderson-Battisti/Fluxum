@@ -47,4 +47,14 @@ public class User
     
     @Column( nullable = false )
     private OnboardingStage onboardingStage = OnboardingStage.NOT_STARTED;
+    
+    public Long getId()
+    {
+        return id;
+    }
+    
+    public String getPassword()
+    {
+        return password;
+    }
 }

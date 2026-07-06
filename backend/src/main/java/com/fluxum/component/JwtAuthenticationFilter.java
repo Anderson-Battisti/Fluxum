@@ -1,0 +1,60 @@
+package com.fluxum.component;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import com.fluxum.service.JwtService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+/**
+ * 
+ * @author Anderson Battisti
+ */
+@Component
+public class JwtAuthenticationFilter
+    extends
+        OncePerRequestFilter
+{
+    private JwtService jwtService;
+    
+    public JwtAuthenticationFilter( JwtService jwtService )
+    {
+        this.jwtService = jwtService;
+    }
+    
+    @Override
+    protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain filterChain ) throws ServletException, IOException
+    {
+        Cookie[] cookies = request.getCookies();
+        
+        if ( cookies != null )
+        {
+            for ( Cookie cookie : Arrays.asList( cookies ) )
+            {
+                if ( cookie.getName().equals( "accessToken" ) && jwtService.isTokenValid( cookie.getValue() ) )
+                {
+                    String token = cookie.getValue();
+                    
+                    Long userId = jwtService.extractUserId( token ) ;
+                    
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( userId, null, List.of() );
+                    
+                    SecurityContextHolder.getContext().setAuthentication( authenticationToken );
+                }
+            }
+        }
+        
+        filterChain.doFilter( request, response );
+    }
+}

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 
  * @author Anderson Battisti
  */
+
 @SpringBootApplication
 public class FluxumSpringBootApplication
 {

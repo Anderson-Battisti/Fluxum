@@ -1,6 +1,8 @@
 package com.fluxum.service;
 
-import com.fluxum.dtos.AuthTokens;
+import com.fluxum.dto.AuthTokensDTO;
+import com.fluxum.exception.AuthenticationFailedException;
+import com.fluxum.model.User;
 import com.fluxum.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,9 +27,20 @@ public class AuthService
         this.passwordEncoder = passwordEncoder;
     }
     
-    public AuthTokens authenticate( String email, String password )
+    public AuthTokensDTO authenticate( String email, String password )
     {
-        // todo
-        return null;
+        AuthenticationFailedException authenticationFailedException = new AuthenticationFailedException( "Authentication failed. Invalid credentials." );
+        
+        User user = userRepository.findByEmail( email ).orElseThrow( () -> authenticationFailedException );
+        
+        if ( !passwordEncoder.matches( password, user.getPassword() ) )
+        {
+            throw authenticationFailedException;
+        }
+        
+        String accessToken = jwtService.generateAccessToken( user.getId() );
+        String refreshToken = refreshTokenService.createRefreshToken( user );
+        
+        return new AuthTokensDTO( accessToken, refreshToken );
     }
 }
