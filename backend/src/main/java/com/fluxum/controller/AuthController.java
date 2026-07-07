@@ -38,7 +38,7 @@ public class AuthController
         ResponseCookie refreshTokenCookie = ResponseCookie.from( "refreshToken", authTokens.refreshToken() )
                                                           .httpOnly( true )
                                                           .secure( false ) /* in production environment make it true! important! */
-                                                          .sameSite( "Strict" )
+                                                          .sameSite( "Strict" ) /* Only attach the cookie  */
                                                           .maxAge( 60 * 60 * 24 * 7 )
                                                           .path( "/" )
                                                           .build();

@@ -13,23 +13,23 @@ import com.fluxum.model.enums.OnboardingStage;
 @Converter( autoApply = true )
 public class OnboardingStageConverter
     implements
-        AttributeConverter<OnboardingStage, Integer>
+        AttributeConverter<OnboardingStage, Byte>
 {
     @Override
-    public Integer convertToDatabaseColumn( OnboardingStage onboardingStage )
+    public Byte convertToDatabaseColumn( OnboardingStage onboardingStage )
     {
         if ( onboardingStage == null ) return null;
         
-        return onboardingStage.getStage();
+        return onboardingStage.getStage().byteValue();
     }
     
     @Override
-    public OnboardingStage convertToEntityAttribute( Integer dbData )
+    public OnboardingStage convertToEntityAttribute( Byte dbData )
     {
         if ( dbData == null ) return null;
         
         return Arrays.stream( OnboardingStage.values() )
-                     .filter( onboardingStage -> onboardingStage.getStage() == dbData )
+                     .filter( onboardingStage -> onboardingStage.getStage().byteValue() == dbData )
                      .findFirst()
                      .orElseThrow( () -> new IllegalArgumentException( "Unknown OnboardingStage value: " + dbData ) );
     }

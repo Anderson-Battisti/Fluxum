@@ -7,12 +7,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 /**
  * 
  * @author Anderson Battisti
  */
 @Entity
+@Table( name = "refresh_tokens" )
 public class RefreshToken
 {
     public RefreshToken() {}

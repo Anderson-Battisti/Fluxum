@@ -18,7 +18,7 @@ public enum OnboardingStage
     
     private final int stage;
     
-    public int getStage()
+    public Integer getStage()
     {
         return this.stage;
     }
