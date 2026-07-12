@@ -1,6 +1,9 @@
 package com.fluxum.config;
 
+import java.util.List;
+
 import com.fluxum.component.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 /**
  * 
@@ -22,6 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig
 {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    
+    @Value( "${fluxum.cors.allowed-origin}" )
+    private String allowedOrigin;
     
     public SecurityConfig( JwtAuthenticationFilter jwtAuthenticationFilter )
     {
@@ -37,7 +44,17 @@ public class SecurityConfig
     @Bean
     public SecurityFilterChain securityFilterChain( HttpSecurity httpSecurity ) throws Exception
     {
-        return httpSecurity.csrf( AbstractHttpConfigurer::disable )
+        return httpSecurity.cors( cors -> cors.configurationSource( request ->
+                            {
+                                CorsConfiguration config = new CorsConfiguration();
+                                config.setAllowedOrigins( List.of( allowedOrigin ) );
+                                config.setAllowedMethods( List.of("GET", "POST", "PUT", "DELETE", "OPTIONS") );
+                                config.setAllowedHeaders( List.of( "*" ) );
+                                config.setAllowCredentials( true );
+                                
+                                return config;
+                            } ) )
+                           .csrf( AbstractHttpConfigurer::disable )
                            .sessionManagement( session -> session.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) )
                            .authorizeHttpRequests( auth -> auth.requestMatchers( "/auth/**" ) /* all request except to /auth/** requires authentication */
                                                                .permitAll()
