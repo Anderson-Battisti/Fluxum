@@ -10,5 +10,6 @@
     "already_have_an_account": "Already have an account?",
     "confirm_password": "Confirm Password",
     "provide_a_valid_email_warning": "Provide a valid email address to log in",
-    "you_need_to_provide_the_email_and_password_to_log_in": "You need to enter your email and password to log in"
+    "you_need_to_provide_the_email_and_password_to_log_in": "You need to enter your email and password to log in",
+    "failed_to_log_in_invalid_credentials": "Failed to log in, invalid credentials"
 }

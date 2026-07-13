@@ -12,11 +12,14 @@ import { CardModes } from "./CardMode";
 import { useToast } from "../../../hooks/useToast";
 import { ToastVariant } from "../../common/Toast/Toast";
 import { ToastContextValue } from "../../../contexts/ToastContext";
+import { useNavigate } from "react-router-dom";
+import { HttpStatus } from "../../../constants/HttpStatus";
 
 export function LoginCard()
 {
     const { t } = useTranslation( ["common", "login-screen"] );
     const { addToast }: ToastContextValue = useToast();
+    const navigate = useNavigate();
     
     const [ mode,     setMode     ] = useState<CardModes>( CardModes.LOGIN_MODE );
     const [ email,    setEmail    ] = useState<string>( "" );
@@ -27,7 +30,7 @@ export function LoginCard()
                                        mode === CardModes.SIGN_UP_MODE ? "login-screen:create_account" : 
                                                                          "login-screen:verify_code" )
     
-    function handleMainButtonClick()
+    async function handleMainButtonClick()
     {
         if ( mode === CardModes.VERIFYING_MODE )
         {
@@ -46,16 +49,29 @@ export function LoginCard()
                 addToast( t( "login-screen:you_need_to_provide_the_email_and_password_to_log_in" ), ToastVariant.WARNING ); return;
             }
             
-            // todo hit server side
+            const response = await fetch( `${import.meta.env.VITE_API_URL}/auth/authenticate`, 
+                                           {
+                                               method: "POST",
+                                               headers: { "Content-Type": "application/json" },
+                                               body: JSON.stringify( { email, password } ),
+                                               credentials: "include"
+                                           } );
+            
+            if ( response.ok )
+            {
+                navigate( "/dashboard" )
+            }
+            
+            else if ( response.status === HttpStatus.UNAUTHORIZED )
+            {
+                addToast( t( "login-screen:failed_to_log_in_invalid_credentials" ), ToastVariant.WARNING );
+            }
         }
         
         else if ( mode === CardModes.SIGN_UP_MODE )
         {
             
         }
-        // todo fields validation
-        
-        // todo hit server side
     }
     
     return (

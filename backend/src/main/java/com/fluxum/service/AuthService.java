@@ -27,7 +27,7 @@ public class AuthService
         this.passwordEncoder = passwordEncoder;
     }
     
-    public AuthTokensDTO authenticate( String email, String password )
+    public AuthTokensDTO authenticate( String email, String password ) throws AuthenticationFailedException
     {
         AuthenticationFailedException authenticationFailedException = new AuthenticationFailedException( "Authentication failed. Invalid credentials." );
         
