@@ -56,7 +56,7 @@ public class SecurityConfig
                             } ) )
                            .csrf( AbstractHttpConfigurer::disable )
                            .sessionManagement( session -> session.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) )
-                           .authorizeHttpRequests( auth -> auth.requestMatchers( "/auth/**" ) /* all request except to /auth/** requires authentication */
+                           .authorizeHttpRequests( auth -> auth.requestMatchers( "/auth/authenticate", "/auth/refresh", "/auth/register" ) /* all requests except those specified requires authentication */
                                                                .permitAll()
                                                                .anyRequest()
                                                                .authenticated() )
