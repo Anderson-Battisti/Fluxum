@@ -1,3 +1,7 @@
+/**
+ * 
+ * @author Anderson Battisti
+ */
 export const HttpStatus = 
 {
     OK: 200,

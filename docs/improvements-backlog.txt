@@ -2,3 +2,11 @@
 
 Toast: Adjust toast container to not create a toast again when the message is equals to another toast already in the exhibition container
 Auth Service: Develop a job to delete expired tokens rows from time to time to make refresh_token table not too big
+
+## Authentication
+- [ ] Endpoint POST /auth/refresh (access token automatic renovation)
+- [ ] Interceptor no React pra chamar /refresh quando receber 401
+- [ ] Endpoint POST /auth/register (criação de conta)
+- [ ] Endpoint POST /auth/logout (revogar refresh token)
+- [ ] Job de limpeza de refresh tokens expirados/revogados
+- [ ] secure: true nos cookies (quando tiver HTTPS em produção)
