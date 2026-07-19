@@ -9,7 +9,7 @@
     "sign_up": "Registrati",
     "already_have_an_account": "Hai già un account?",
     "confirm_password": "Conferma Password",
-    "provide_a_valid_email_warning": "Inserisci un indirizzo email valido per accedere",
+    "provide_a_valid_email_warning": "Inserisci un indirizzo email valido per accedere o creare un account",
     "you_need_to_provide_the_email_and_password_to_log_in": "Devi inserire l'email e la password per accedere",
     "failed_to_log_in_invalid_credentials": "Accesso fallito, credenziali non valide"
 }

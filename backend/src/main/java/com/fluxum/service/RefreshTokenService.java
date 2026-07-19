@@ -6,8 +6,8 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
-import com.fluxum.exception.RefreshTokenNotFoundException;
-import com.fluxum.exception.TokenNotValidException;
+import com.fluxum.exception.authentication.RefreshTokenNotFoundException;
+import com.fluxum.exception.authentication.TokenNotValidException;
 import com.fluxum.model.RefreshToken;
 import com.fluxum.model.User;
 import com.fluxum.repository.RefreshTokenRepository;

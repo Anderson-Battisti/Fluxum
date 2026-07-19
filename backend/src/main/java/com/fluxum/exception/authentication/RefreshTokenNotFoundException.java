@@ -1,4 +1,4 @@
-package com.fluxum.exception;
+package com.fluxum.exception.authentication;
 
 /**
  * 

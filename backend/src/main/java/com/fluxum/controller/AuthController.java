@@ -2,7 +2,9 @@ package com.fluxum.controller;
 
 import com.fluxum.dto.AuthBodyDTO;
 import com.fluxum.dto.AuthTokensDTO;
-import com.fluxum.exception.AuthenticationFailedException;
+import com.fluxum.exception.authentication.AuthenticationFailedException;
+import com.fluxum.exception.authentication.CodeRequestBlockedException;
+import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
 import com.fluxum.service.AuthService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -56,6 +58,27 @@ public class AuthController
         catch ( AuthenticationFailedException exception )
         {
             return ResponseEntity.status( HttpStatus.UNAUTHORIZED ).build();
+        }
+    }
+    
+    @PostMapping( "/send-verification-code" )
+    public ResponseEntity<?> verificationCode( @RequestBody String email )
+    {
+        try
+        {
+            authService.sendVerificationCode( email );
+            
+            return ResponseEntity.ok().build();
+        }
+        
+        catch ( CodeRequestBlockedException codeRequestBlockedException )
+        {
+            return ResponseEntity.status( HttpStatus.TOO_MANY_REQUESTS ).body( codeRequestBlockedException.getMessage() );
+        }
+        
+        catch ( UserAlreadyRegisteredException userAlreadyRegisteredException )
+        {
+            return ResponseEntity.status( HttpStatus.CONFLICT ).body( userAlreadyRegisteredException.getMessage() );
         }
     }
     

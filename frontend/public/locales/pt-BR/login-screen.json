@@ -9,7 +9,7 @@
     "sign_up": "Inscreva-se",
     "already_have_an_account": "Já tem uma conta?",
     "confirm_password": "Confirmar Senha",
-    "provide_a_valid_email_warning": "Informe um endereço de email válido para fazer login",
+    "provide_a_valid_email_warning": "Informe um endereço de email válido para fazer login ou criar uma conta",
     "you_need_to_provide_the_email_and_password_to_log_in": "Você precisa informar email e senha para fazer login",
     "failed_to_log_in_invalid_credentials": "Falha ao logar, credenciais inválidas"
 }
