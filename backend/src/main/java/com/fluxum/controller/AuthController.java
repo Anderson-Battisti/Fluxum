@@ -5,7 +5,7 @@ import com.fluxum.dto.AuthTokensDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
-import com.fluxum.service.AuthService;
+import com.fluxum.service.auth.AuthService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;

@@ -1,4 +1,4 @@
-package com.fluxum.service;
+package com.fluxum.service.auth;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;

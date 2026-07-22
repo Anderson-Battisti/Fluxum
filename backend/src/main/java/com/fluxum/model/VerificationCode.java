@@ -17,6 +17,15 @@ import jakarta.validation.constraints.NotNull;
 @Table( name = "verification_codes" )
 public class VerificationCode
 {
+    public VerificationCode() {}
+    
+    public VerificationCode( String email, String code, LocalDateTime expiresAt )
+    {
+        this.email = email;
+        this.code = code;
+        this.expiresAt = expiresAt;
+    }
+    
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
@@ -32,6 +41,16 @@ public class VerificationCode
     @NotNull
     @Column( name = "expires_at", nullable = false )
     private LocalDateTime expiresAt;
+    
+    public void setCode( String code )
+    {
+        this.code = code;
+    }
+    
+    public void setExpiresAt( LocalDateTime expiresAt )
+    {
+        this.expiresAt = expiresAt;
+    }
     
     public LocalDateTime getExpiresAt()
     {
