@@ -42,13 +42,13 @@ export function LoginCard()
             addToast( t( "login-screen:provide_a_valid_email_warning" ), ToastVariant.WARNING ); return;
         }
         
+        if ( !password )
+        {
+            addToast( t( "login-screen:you_need_to_provide_the_email_and_password_to_log_in" ), ToastVariant.WARNING ); return;
+        }
+        
         else if ( mode === CardModes.LOGIN_MODE )
         {
-            if ( !password )
-            {
-                addToast( t( "login-screen:you_need_to_provide_the_email_and_password_to_log_in" ), ToastVariant.WARNING ); return;
-            }
-            
             const response = await fetch( `${import.meta.env.VITE_API_URL}/auth/authenticate`, 
                                            {
                                                method: "POST",
@@ -59,7 +59,7 @@ export function LoginCard()
             
             if ( response.ok )
             {
-                navigate( "/dashboard" )
+                navigate( "/dashboard" );
             }
             
             else if ( response.status === HttpStatus.UNAUTHORIZED )
@@ -70,7 +70,22 @@ export function LoginCard()
         
         else if ( mode === CardModes.SIGN_UP_MODE )
         {
+            if ( !confirmationPassword )
+            {
+                addToast( t( "login-screen:please_enter_the_password_confirmation" ), ToastVariant.WARNING ); return;
+            }
             
+            if ( password.length < 8 || password.length > 128 )
+            {
+                addToast( t( "login-screen:the_passowrd_must_be_between_8_and_128_characters_long" ), ToastVariant.WARNING ); return;
+            }
+            
+            if ( password != confirmationPassword )
+            {
+                addToast( t( "login-screen:the_passwords_must_match" ), ToastVariant.WARNING )
+            }
+            
+            // todo hit api
         }
     }
     

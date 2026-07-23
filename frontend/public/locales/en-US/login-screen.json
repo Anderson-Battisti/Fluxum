@@ -11,5 +11,8 @@
     "confirm_password": "Confirm Password",
     "provide_a_valid_email_warning": "Provide a valid email address to log in or create account",
     "you_need_to_provide_the_email_and_password_to_log_in": "You need to enter your email and password to log in",
-    "failed_to_log_in_invalid_credentials": "Failed to log in, invalid credentials"
+    "failed_to_log_in_invalid_credentials": "Failed to log in, invalid credentials",
+    "please_enter_the_password_confirmation": "Please enter the password confirmation",
+    "the_passowrd_must_be_between_8_and_128_characters_long": "The password must be between 8 and 128 characters long",
+    "the_passwords_must_match": "The passwords must match"
 }

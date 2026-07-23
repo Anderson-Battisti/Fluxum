@@ -11,5 +11,8 @@
     "confirm_password": "Confirmar Senha",
     "provide_a_valid_email_warning": "Informe um endereço de email válido para fazer login ou criar uma conta",
     "you_need_to_provide_the_email_and_password_to_log_in": "Você precisa informar email e senha para fazer login",
-    "failed_to_log_in_invalid_credentials": "Falha ao logar, credenciais inválidas"
+    "failed_to_log_in_invalid_credentials": "Falha ao logar, credenciais inválidas",
+    "please_enter_the_password_confirmation": "Por favor, informe a confirmação da senha",
+    "the_passowrd_must_be_between_8_and_128_characters_long": "A senha deve ter no mínimo 8 caracteres e no máximo 128",
+    "the_passwords_must_match": "As senhas devem ser iguais"
 }
