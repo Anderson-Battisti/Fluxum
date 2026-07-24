@@ -1,7 +1,9 @@
 package com.fluxum.controller;
 
-import com.fluxum.dto.AuthBodyDTO;
-import com.fluxum.dto.AuthTokensDTO;
+import com.fluxum.dto.auth.AuthBodyDTO;
+import com.fluxum.dto.auth.AuthTokensDTO;
+import com.fluxum.dto.auth.SendVerificationCodeDTO;
+import com.fluxum.dto.auth.UserRegistrationDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
@@ -61,12 +63,22 @@ public class AuthController
         }
     }
     
+    @PostMapping( "/register" )
+    public ResponseEntity<Void> registerUser( @RequestBody UserRegistrationDTO userRegistrationDTO )
+    {
+        //todo
+        
+        userRegistrationDTO.email();
+        
+        return ResponseEntity.ok().build();
+    }
+    
     @PostMapping( "/send-verification-code" )
-    public ResponseEntity<?> verificationCode( @RequestBody String email )
+    public ResponseEntity<?> verificationCode( @RequestBody SendVerificationCodeDTO sendVerificationCodeDTO )
     {
         try
         {
-            authService.sendVerificationCode( email );
+            authService.sendVerificationCode( sendVerificationCodeDTO.email() );
             
             return ResponseEntity.ok().build();
         }

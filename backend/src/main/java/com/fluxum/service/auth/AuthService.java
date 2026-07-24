@@ -3,7 +3,7 @@ package com.fluxum.service.auth;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import com.fluxum.dto.AuthTokensDTO;
+import com.fluxum.dto.auth.AuthTokensDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;

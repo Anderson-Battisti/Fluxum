@@ -1,19 +1,19 @@
 import styles from './styles.module.css';
-import { LoginCardHeader } from './LoginCardHeader';
-import { TextInputField } from "../../common/TextInputField";
-import { useTranslation } from "react-i18next";
-import { Button } from "../../common/Button";
-import { ButtonVariants } from "../../common/Button/ButtonVariants";
-import { Separator } from "./Separator";
-import { FcGoogle } from "react-icons/fc";
-import { LoginCardFooter } from "./LoginCardFooter";
-import { useState } from "react";
-import { CardModes } from "./CardMode";
-import { useToast } from "../../../hooks/useToast";
-import { ToastVariant } from "../../common/Toast/Toast";
-import { ToastContextValue } from "../../../contexts/ToastContext";
-import { useNavigate } from "react-router-dom";
-import { HttpStatus } from "../../../constants/HttpStatus";
+import {LoginCardHeader} from './LoginCardHeader';
+import {TextInputField} from "../../common/TextInputField";
+import {useTranslation} from "react-i18next";
+import {Button} from "../../common/Button";
+import {ButtonVariants} from "../../common/Button/ButtonVariants";
+import {Separator} from "./Separator";
+import {FcGoogle} from "react-icons/fc";
+import {LoginCardFooter} from "./LoginCardFooter";
+import {useState} from "react";
+import {CardModes} from "./CardMode";
+import {useToast} from "../../../hooks/useToast";
+import {ToastVariant} from "../../common/Toast/Toast";
+import {ToastContextValue} from "../../../contexts/ToastContext";
+import {useNavigate} from "react-router-dom";
+import {HttpStatus} from "../../../constants/HttpStatus";
 
 export function LoginCard()
 {
@@ -85,7 +85,17 @@ export function LoginCard()
                 addToast( t( "login-screen:the_passwords_must_match" ), ToastVariant.WARNING )
             }
             
-            // todo hit api
+            const response = await fetch( `${import.meta.env.VITE_API_URL}/auth/send-verification-code`,
+                                           {
+                                               method: "POST",
+                                               headers: { "Content-Type": "application/json" },
+                                               body: JSON.stringify( { email } )
+                                           } );
+            
+            if ( response.ok )
+            {
+                setMode( CardModes.VERIFYING_MODE )
+            }
         }
     }
     

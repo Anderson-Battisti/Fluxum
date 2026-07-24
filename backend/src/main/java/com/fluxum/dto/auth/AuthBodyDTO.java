@@ -1,4 +1,4 @@
-package com.fluxum.dto;
+package com.fluxum.dto.auth;
 
 /**
  * 
