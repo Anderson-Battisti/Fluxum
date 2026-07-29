@@ -78,7 +78,7 @@ public class AuthController
     {
         try
         {
-            authService.sendVerificationCode( sendVerificationCodeDTO.email() );
+            authService.sendVerificationCode( sendVerificationCodeDTO.email(), sendVerificationCodeDTO.password() );
             
             return ResponseEntity.ok().build();
         }

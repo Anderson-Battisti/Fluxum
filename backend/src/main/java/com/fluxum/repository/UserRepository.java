@@ -14,4 +14,5 @@ public interface UserRepository
         JpaRepository<User, Integer>
 {
     Optional<User> findByEmail( String email );
+    Optional<User> findByEmailAndEmailVerified( String email, boolean emailVerified );
 }

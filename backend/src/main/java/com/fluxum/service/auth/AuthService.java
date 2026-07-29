@@ -58,9 +58,9 @@ public class AuthService
         return new AuthTokensDTO( accessToken, refreshToken );
     }
     
-    public void sendVerificationCode( String email )
+    public void sendVerificationCode( String email, String password )
     {
-        if ( userRepository.findByEmail( email ).isPresent() )
+        if ( userRepository.findByEmailAndEmailVerified( email, true ).isPresent() )
         {
             throw new UserAlreadyRegisteredException( "This email is already registered in the database!" );
         }
@@ -90,6 +90,11 @@ public class AuthService
         else
         {
             verificationCodesRepository.save( new VerificationCode( email, code, LocalDateTime.now().plusMinutes( 10 ) ) );
+        }
+        
+        if ( userRepository.findByEmail( email ).isEmpty() )
+        {
+            userRepository.save( new User( email, passwordEncoder.encode( password ) ) );
         }
         
         emailService.sendVerificationCode( email, code );

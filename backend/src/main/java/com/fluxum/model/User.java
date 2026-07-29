@@ -20,6 +20,13 @@ import com.fluxum.model.enums.OnboardingStage;
 @Table( name = "users" )
 public class User
 {
+    public User( String email, String encryptedPassword )
+    {
+        this.email = email;
+        this.password = encryptedPassword;
+        this.emailVerified = false;
+    }
+    
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
@@ -31,7 +38,7 @@ public class User
     
     @NotEmpty
     @Size( max = 254 )
-    @Column( nullable = false, length = 254, unique = true )
+    @Column( length = 254, unique = true )
     private String email;
     
     @NotEmpty
@@ -49,6 +56,9 @@ public class User
     
     @Column( nullable = false )
     private OnboardingStage onboardingStage = OnboardingStage.NOT_STARTED;
+    
+    @Column( nullable = false )
+    private Boolean emailVerified;
     
     public Long getId()
     {
