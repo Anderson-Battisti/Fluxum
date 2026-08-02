@@ -14,5 +14,11 @@
     "failed_to_log_in_invalid_credentials": "Failed to log in, invalid credentials",
     "please_enter_the_password_confirmation": "Please enter the password confirmation",
     "the_passowrd_must_be_between_8_and_128_characters_long": "The password must be between 8 and 128 characters long",
-    "the_passwords_must_match": "The passwords must match"
+    "the_passwords_must_match": "The passwords must match",
+    "verification-code": "Verification Code",
+    "code_successfully_verified_you_can_now_login_and_start_using_fluxum": "Code successfully verified! You can now log in and start using Fluxum!",
+    "the_verification_code_you_entered_is_incorrect": "The verification code you entered is incorrect",
+    "an_error_occurred_while_processing_your_request_please_try_again_later": "An error occurred while processing your request. Please try again later",
+    "please_wait_before_requesting_another_verification_code": "Please wait before requesting another verification code!",
+    "the_code_could_not_be_verified_because_this_email_address_is_already_registered_and_verified_in_the_system": "The code could not be verified because this email address is already registered and verified in the system"
 }

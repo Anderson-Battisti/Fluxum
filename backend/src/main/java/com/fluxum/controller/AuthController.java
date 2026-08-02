@@ -94,6 +94,13 @@ public class AuthController
         }
     }
     
+    @PostMapping( "/check-verification-code" )
+    public ResponseEntity<Void> checkVerificationCode()
+    {
+        //TODO
+        return ResponseEntity.ok().build();
+    }
+    
     @GetMapping( "/me" )
     public ResponseEntity<Void> me()
     {

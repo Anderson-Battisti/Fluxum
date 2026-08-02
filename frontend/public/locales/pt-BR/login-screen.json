@@ -14,5 +14,11 @@
     "failed_to_log_in_invalid_credentials": "Falha ao logar, credenciais inválidas",
     "please_enter_the_password_confirmation": "Por favor, informe a confirmação da senha",
     "the_passowrd_must_be_between_8_and_128_characters_long": "A senha deve ter no mínimo 8 caracteres e no máximo 128",
-    "the_passwords_must_match": "As senhas devem ser iguais"
+    "the_passwords_must_match": "As senhas devem ser iguais",
+    "verification-code": "Código de Verificação",
+    "code_successfully_verified_you_can_now_login_and_start_using_fluxum": "Código verificado com sucesso! Agora é só fazer login para utilizar o Fluxum!",
+    "the_verification_code_you_entered_is_incorrect": "O código de verificação informado está incorreto",
+    "an_error_occurred_while_processing_your_request_please_try_again_later": "Ocorreu um erro ao tentar verificar sua solicitação, tente novamente mais tarde",
+    "please_wait_before_requesting_another_verification_code": "Aguarde para enviar outro código de verificação!",
+    "the_code_could_not_be_verified_because_this_email_address_is_already_registered_and_verified_in_the_system": "Não foi possível verificar o código porque este email já está cadastrado e verificado no sistema"
 }
