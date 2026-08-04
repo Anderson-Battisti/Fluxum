@@ -17,12 +17,14 @@ import {HttpStatus} from "../../../constants/HttpStatus";
 
 export function LoginCard()
 {
+    const sessionStorageKey: string = "fluxum_pending_email";
+    
     const { t } = useTranslation( ["common", "login-screen"] );
     const { addToast }: ToastContextValue = useToast();
     const navigate = useNavigate();
     
-    const [ mode,     setMode     ] = useState<CardModes>( CardModes.LOGIN_MODE );
-    const [ email,    setEmail    ] = useState<string>( "" );
+    const [ mode,     setMode     ] = useState<CardModes>( getInitialCardMode() );
+    const [ email,    setEmail    ] = useState<string>( getInitialEmail() );
     const [ password, setPassword ] = useState<string>( "" );
     const [ confirmationPassword, setConfirmationPassword ] = useState<string>( "" );
     const [ code, setCode ] = useState<string>( "" );
@@ -31,11 +33,23 @@ export function LoginCard()
                                        mode === CardModes.SIGN_UP_MODE ? "login-screen:create_account" : 
                                                                          "login-screen:verify_code" )
     
+    function getInitialCardMode(): CardModes
+    {
+        const savedEmail: string | null = sessionStorage.getItem( sessionStorageKey );
+        
+        return savedEmail !== null ? CardModes.VERIFYING_MODE : CardModes.LOGIN_MODE;
+    }
+    
+    function getInitialEmail(): string
+    {
+        return sessionStorage.getItem( sessionStorageKey ) ?? "";
+    }
+    
     async function handleMainButtonClick()
     {
         if ( mode === CardModes.VERIFYING_MODE )
         {
-            let localStorageEmail: string | null = localStorage.getItem( "fluxum_pending_email" );
+            let localStorageEmail: string | null = localStorage.getItem( sessionStorageKey );
             
             if ( localStorageEmail === null )
             {
@@ -53,12 +67,24 @@ export function LoginCard()
             {
                 addToast( t( "login-screen:code_successfully_verified_you_can_now_login_and_start_using_fluxum" ), ToastVariant.SUCCESS )
                 
-                sessionStorage.removeItem( "fluxum_pending_email" );
+                sessionStorage.removeItem( sessionStorageKey );
                 
                 setMode( CardModes.LOGIN_MODE );
             }
             
-            else if ( response.status === HttpStatus.UNPROCESSABLE_ENTITY )
+            else if ( response.status === HttpStatus.NOT_FOUND )
+            {
+                addToast( t( "login-screen:there_is_no_verification_code_associated_with_this_email_address_please_sign_up_to_start_using_fluxum" ) );
+                
+                setMode( CardModes.SIGN_UP_MODE );
+            }
+            
+            else if ( response.status === HttpStatus.GONE )
+            {
+                addToast( t( "login-screen:the_code_you_entered_is_not_valid_please_request_a_new_verification_code" ), ToastVariant.WARNING );
+            }
+            
+            else if ( response.status === HttpStatus.BAD_REQUEST )
             {
                 addToast( t( "login-screen:the_verification_code_you_entered_is_incorrect" ), ToastVariant.ERROR );
             }
@@ -121,12 +147,12 @@ export function LoginCard()
                                            {
                                                method: "POST",
                                                headers: { "Content-Type": "application/json" },
-                                               body: JSON.stringify( { email } )
+                                               body: JSON.stringify( { email, password } )
                                            } );
             
             if ( response.ok )
             {
-                sessionStorage.setItem( "fluxum_pending_email", email );
+                sessionStorage.setItem( sessionStorageKey, email );
                 
                 setMode( CardModes.VERIFYING_MODE );
             }
@@ -143,6 +169,11 @@ export function LoginCard()
                 addToast( t( "login-screen:the_code_could_not_be_verified_because_this_email_address_is_already_registered_and_verified_in_the_system" ), ToastVariant.ERROR );
                 
                 setMode( CardModes.LOGIN_MODE );
+            }
+            
+            else
+            {
+                addToast( t( "login-screen:an_error_occurred_while_processing_your_request_please_try_again_later" ), ToastVariant.ERROR );
             }
         }
     }

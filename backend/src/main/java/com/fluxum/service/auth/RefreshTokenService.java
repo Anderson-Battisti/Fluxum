@@ -13,6 +13,7 @@ import com.fluxum.model.User;
 import com.fluxum.repository.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -47,6 +48,7 @@ public class RefreshTokenService
         }
     }
     
+    @Transactional
     public String createRefreshToken( User user )
     {
         byte[] randomBytes = new byte[ 64 ];
@@ -77,6 +79,7 @@ public class RefreshTokenService
         return refreshToken;
     }
     
+    @Transactional
     public void revokeRefreshToken( String rawToken )
     {
         RefreshToken updatedRefreshToken = refreshTokenRepository.findByTokenHash( getHashToken( rawToken ) )

@@ -56,7 +56,12 @@ public class SecurityConfig
                             } ) )
                            .csrf( AbstractHttpConfigurer::disable )
                            .sessionManagement( session -> session.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) )
-                           .authorizeHttpRequests( auth -> auth.requestMatchers( "/auth/authenticate", "/auth/refresh", "/auth/register", "/auth/send-verification-code" ) /* all requests except those specified requires authentication */
+                           .authorizeHttpRequests( auth -> auth.requestMatchers( "/auth/authenticate", 
+                                                                                 "/auth/refresh", 
+                                                                                 "/auth/register", 
+                                                                                 "/auth/send-verification-code", /* all requests except those specified here requires authentication */
+                                                                                 "/check-verification-code",
+                                                                                 "/error" ) /* It's a spring native route. Added here to avoid 403 forbidden when a not catched exception is thrown by my endpoints */
                                                                .permitAll()
                                                                .anyRequest()
                                                                .authenticated() )

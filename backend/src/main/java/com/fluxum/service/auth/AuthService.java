@@ -6,7 +6,10 @@ import java.util.Optional;
 import com.fluxum.dto.auth.AuthTokensDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
+import com.fluxum.exception.authentication.InvalidVerificationCodeException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
+import com.fluxum.exception.authentication.VerificationCodeExpiredException;
+import com.fluxum.exception.authentication.VerificationCodeNotFoundException;
 import com.fluxum.interfaces.EmailService;
 import com.fluxum.model.User;
 import com.fluxum.model.VerificationCode;
@@ -15,6 +18,7 @@ import com.fluxum.repository.VerificationCodesRepository;
 import com.fluxum.util.authentication.VerificationCodeGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -58,6 +62,7 @@ public class AuthService
         return new AuthTokensDTO( accessToken, refreshToken );
     }
     
+    @Transactional
     public void sendVerificationCode( String email, String password )
     {
         if ( userRepository.findByEmailAndEmailVerified( email, true ).isPresent() )
@@ -98,5 +103,25 @@ public class AuthService
         }
         
         emailService.sendVerificationCode( email, code );
+    }
+    
+    @Transactional
+    public void checkVerificationCode( String email, String verificationCode )
+    {
+        VerificationCode fetchedVerificationCodeObject = verificationCodesRepository.findByEmail( email )
+                                                                                    .orElseThrow( () -> new VerificationCodeNotFoundException( "No VerificationCode found for this email: " + email ) );
+        
+        if ( fetchedVerificationCodeObject.getExpiresAt().isBefore( LocalDateTime.now() ) )
+        {
+            throw new VerificationCodeExpiredException( "The provided code has already expired!" );
+        }
+        
+        else if ( !fetchedVerificationCodeObject.getCode().equalsIgnoreCase( verificationCode ) )
+        {
+            throw new InvalidVerificationCodeException( "The provided verification code doesn't match with the database register!" );
+        }
+        
+        userRepository.activateEmail( email );
+        verificationCodesRepository.deleteByEmail( email );
     }
 }

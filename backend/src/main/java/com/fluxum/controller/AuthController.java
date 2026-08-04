@@ -2,11 +2,15 @@ package com.fluxum.controller;
 
 import com.fluxum.dto.auth.AuthBodyDTO;
 import com.fluxum.dto.auth.AuthTokensDTO;
+import com.fluxum.dto.auth.CheckVerificationCodeDTO;
 import com.fluxum.dto.auth.SendVerificationCodeDTO;
 import com.fluxum.dto.auth.UserRegistrationDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
+import com.fluxum.exception.authentication.InvalidVerificationCodeException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
+import com.fluxum.exception.authentication.VerificationCodeExpiredException;
+import com.fluxum.exception.authentication.VerificationCodeNotFoundException;
 import com.fluxum.service.auth.AuthService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -78,6 +82,7 @@ public class AuthController
     {
         try
         {
+            System.out.println("CHEGOU AQUI");
             authService.sendVerificationCode( sendVerificationCodeDTO.email(), sendVerificationCodeDTO.password() );
             
             return ResponseEntity.ok().build();
@@ -95,9 +100,28 @@ public class AuthController
     }
     
     @PostMapping( "/check-verification-code" )
-    public ResponseEntity<Void> checkVerificationCode()
+    public ResponseEntity<Void> checkVerificationCode( @RequestBody CheckVerificationCodeDTO checkVerificationCodeDTO )
     {
-        //TODO
+        try
+        {
+            authService.checkVerificationCode( checkVerificationCodeDTO.email(), checkVerificationCodeDTO.verificationCode() );
+        }
+        
+        catch ( VerificationCodeNotFoundException codeNotFoundException )
+        {
+            return ResponseEntity.status( HttpStatus.NOT_FOUND ).build();
+        }
+        
+        catch ( VerificationCodeExpiredException expiredException )
+        {
+            return ResponseEntity.status( HttpStatus.GONE ).build();
+        }
+        
+        catch ( InvalidVerificationCodeException invalidVerificationCodeException )
+        {
+            return ResponseEntity.status( HttpStatus.BAD_REQUEST ).build();
+        }
+        
         return ResponseEntity.ok().build();
     }
     

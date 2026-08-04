@@ -14,4 +14,5 @@ public interface VerificationCodesRepository
         JpaRepository<VerificationCode, Integer>
 {
     Optional<VerificationCode> findByEmail( String email );
+    void deleteByEmail( String email );
 }

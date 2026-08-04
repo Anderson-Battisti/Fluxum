@@ -47,6 +47,11 @@ public class VerificationCode
         this.code = code;
     }
     
+    public String getCode()
+    {
+        return this.code;
+    }
+    
     public void setExpiresAt( LocalDateTime expiresAt )
     {
         this.expiresAt = expiresAt;

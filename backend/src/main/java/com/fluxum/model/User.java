@@ -20,6 +20,7 @@ import com.fluxum.model.enums.OnboardingStage;
 @Table( name = "users" )
 public class User
 {
+    public User() {}
     public User( String email, String encryptedPassword )
     {
         this.email = email;
