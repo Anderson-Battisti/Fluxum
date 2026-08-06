@@ -8,6 +8,7 @@ import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.InvalidVerificationCodeException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
+import com.fluxum.exception.authentication.UserNameNullOrEmptyException;
 import com.fluxum.exception.authentication.VerificationCodeExpiredException;
 import com.fluxum.exception.authentication.VerificationCodeNotFoundException;
 import com.fluxum.interfaces.EmailService;
@@ -63,11 +64,16 @@ public class AuthService
     }
     
     @Transactional
-    public void sendVerificationCode( String email, String password )
+    public void sendVerificationCode( String email, String password, String name )
     {
         if ( userRepository.findByEmailAndEmailVerified( email, true ).isPresent() )
         {
             throw new UserAlreadyRegisteredException( "This email is already registered in the database!" );
+        }
+        
+        if ( name == null || name.isEmpty() )
+        {
+            throw new UserNameNullOrEmptyException( "The username cannot be null or empty!" );
         }
         
         Optional<VerificationCode> verificationCode = verificationCodesRepository.findByEmail( email );
@@ -99,7 +105,7 @@ public class AuthService
         
         if ( userRepository.findByEmail( email ).isEmpty() )
         {
-            userRepository.save( new User( email, passwordEncoder.encode( password ) ) );
+            userRepository.save( new User( email, passwordEncoder.encode( password ), name ) );
         }
         
         emailService.sendVerificationCode( email, code );

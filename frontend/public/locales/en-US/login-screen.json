@@ -20,7 +20,8 @@
     "the_verification_code_you_entered_is_incorrect": "The verification code you entered is incorrect",
     "an_error_occurred_while_processing_your_request_please_try_again_later": "An error occurred while processing your request. Please try again later",
     "please_wait_before_requesting_another_verification_code": "Please wait before requesting another verification code!",
-    "the_code_could_not_be_verified_because_this_email_address_is_already_registered_and_verified_in_the_system": "The code could not be verified because this email address is already registered and verified in the system",
     "the_code_you_entered_is_not_valid_please_request_a_new_verification_code": "The code you entered is not valid. Please request a new verification code",
-    "there_is_no_verification_code_associated_with_this_email_address_please_sign_up_to_start_using_fluxum": "There is no verification code associated with this email address. Please sign up to start using Fluxum!"
+    "there_is_no_verification_code_associated_with_this_email_address_please_sign_up_to_start_using_fluxum": "There is no verification code associated with this email address. Please sign up to start using Fluxum!",
+    "please_enter_your_full_name_to_register": "Please enter your full name to register",
+    "we_could_not_create_an_account_because_this_email_is_already_registered_in_the_system": "We couldn't create an account because this email is already registered in the system"
 }

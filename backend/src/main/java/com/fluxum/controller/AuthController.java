@@ -9,6 +9,7 @@ import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.InvalidVerificationCodeException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
+import com.fluxum.exception.authentication.UserNameNullOrEmptyException;
 import com.fluxum.exception.authentication.VerificationCodeExpiredException;
 import com.fluxum.exception.authentication.VerificationCodeNotFoundException;
 import com.fluxum.service.auth.AuthService;
@@ -82,20 +83,24 @@ public class AuthController
     {
         try
         {
-            System.out.println("CHEGOU AQUI");
-            authService.sendVerificationCode( sendVerificationCodeDTO.email(), sendVerificationCodeDTO.password() );
+            authService.sendVerificationCode( sendVerificationCodeDTO.email(), sendVerificationCodeDTO.password(), sendVerificationCodeDTO.name() );
             
             return ResponseEntity.ok().build();
         }
         
-        catch ( CodeRequestBlockedException codeRequestBlockedException )
+        catch ( UserNameNullOrEmptyException userNameNullOrEmptyException )
         {
-            return ResponseEntity.status( HttpStatus.TOO_MANY_REQUESTS ).body( codeRequestBlockedException.getMessage() );
+            return ResponseEntity.status( HttpStatus.UNPROCESSABLE_CONTENT ).body( userNameNullOrEmptyException.getMessage() );
         }
         
         catch ( UserAlreadyRegisteredException userAlreadyRegisteredException )
         {
             return ResponseEntity.status( HttpStatus.CONFLICT ).body( userAlreadyRegisteredException.getMessage() );
+        }
+        
+        catch ( CodeRequestBlockedException codeRequestBlockedException )
+        {
+            return ResponseEntity.status( HttpStatus.TOO_MANY_REQUESTS ).body( codeRequestBlockedException.getMessage() );
         }
     }
     

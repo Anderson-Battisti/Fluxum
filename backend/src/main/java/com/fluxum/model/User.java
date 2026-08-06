@@ -21,10 +21,11 @@ import com.fluxum.model.enums.OnboardingStage;
 public class User
 {
     public User() {}
-    public User( String email, String encryptedPassword )
+    public User( String email, String encryptedPassword, String name )
     {
         this.email = email;
         this.password = encryptedPassword;
+        this.name = name;
         this.emailVerified = false;
     }
     
@@ -46,19 +47,19 @@ public class User
     @Column( nullable = false, length = 255 )
     private String password;
     
-    @Column( nullable = false )
+    @Column( nullable = false, insertable = false )
     private Boolean active = true;
     
-    @Column( nullable = false, updatable = false )
+    @Column( insertable = false, updatable = false )
     private LocalDateTime createdAt;
     
-    @Column( nullable = false )
+    @Column( insertable = false, updatable = false )
     private LocalDateTime updatedAt;
     
-    @Column( nullable = false )
+    @Column( insertable = false )
     private OnboardingStage onboardingStage = OnboardingStage.NOT_STARTED;
     
-    @Column( nullable = false )
+    @Column( insertable = false )
     private Boolean emailVerified;
     
     public Long getId()
