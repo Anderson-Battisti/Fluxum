@@ -14,7 +14,7 @@ import {ToastVariant} from "../../common/Toast/Toast";
 import {ToastContextValue} from "../../../contexts/ToastContext";
 import {useNavigate} from "react-router-dom";
 import {HttpStatus} from "../../../constants/HttpStatus";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 
 export function LoginCard()
 {
@@ -125,6 +125,11 @@ export function LoginCard()
             else if ( response.status === HttpStatus.UNAUTHORIZED )
             {
                 addToast( t( "login-screen:failed_to_log_in_invalid_credentials" ), ToastVariant.WARNING ); return;
+            }
+            
+            else if ( response.status === HttpStatus.FORBIDDEN )
+            {
+                addToast( t( "login-screen:login_failed_email_not_yet_verified" ), ToastVariant.WARNING ); return;
             }
         }
         

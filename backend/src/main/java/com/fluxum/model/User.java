@@ -71,4 +71,9 @@ public class User
     {
         return password;
     }
+    
+    public Boolean isEmailVerified()
+    {
+        return emailVerified;
+    }
 }

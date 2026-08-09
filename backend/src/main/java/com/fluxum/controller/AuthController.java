@@ -9,6 +9,7 @@ import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.InvalidVerificationCodeException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
+import com.fluxum.exception.authentication.UserEmailNotVerifiedException;
 import com.fluxum.exception.authentication.UserNameNullOrEmptyException;
 import com.fluxum.exception.authentication.VerificationCodeExpiredException;
 import com.fluxum.exception.authentication.VerificationCodeNotFoundException;
@@ -65,6 +66,11 @@ public class AuthController
         catch ( AuthenticationFailedException exception )
         {
             return ResponseEntity.status( HttpStatus.UNAUTHORIZED ).build();
+        }
+        
+        catch ( UserEmailNotVerifiedException userEmailNotVerifiedException )
+        {
+            return ResponseEntity.status( HttpStatus.FORBIDDEN ).build();
         }
     }
     

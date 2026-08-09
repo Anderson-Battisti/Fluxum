@@ -8,6 +8,7 @@ import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.InvalidVerificationCodeException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
+import com.fluxum.exception.authentication.UserEmailNotVerifiedException;
 import com.fluxum.exception.authentication.UserNameNullOrEmptyException;
 import com.fluxum.exception.authentication.VerificationCodeExpiredException;
 import com.fluxum.exception.authentication.VerificationCodeNotFoundException;
@@ -45,7 +46,7 @@ public class AuthService
         this.emailService = emailService;
     }
     
-    public AuthTokensDTO authenticate( String email, String password ) throws AuthenticationFailedException
+    public AuthTokensDTO authenticate( String email, String password ) throws AuthenticationFailedException, UserEmailNotVerifiedException
     {
         AuthenticationFailedException authenticationFailedException = new AuthenticationFailedException( "Authentication failed. Invalid credentials." );
         
@@ -55,6 +56,11 @@ public class AuthService
         if ( !passwordEncoder.matches( password, user.getPassword() ) )
         {
             throw authenticationFailedException;
+        }
+        
+        if ( !user.isEmailVerified() )
+        {
+            throw new UserEmailNotVerifiedException( "Authentication failed. User email not verified yet." );
         }
         
         String accessToken  = jwtService.generateAccessToken( user.getId() );
