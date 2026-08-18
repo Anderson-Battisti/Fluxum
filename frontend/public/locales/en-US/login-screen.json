@@ -7,6 +7,8 @@
     "continue_with_google": "Continue with Google",
     "dont_have_an_account": "Don't have an account?",
     "sign_up": "Sign up",
+    "didnt_verify_your_email": "Didn’t verify your email?",
+    "verify_now": "Verify now",
     "already_have_an_account": "Already have an account?",
     "confirm_password": "Confirm Password",
     "provide_a_valid_email_warning": "Provide a valid email address to log in or create account",

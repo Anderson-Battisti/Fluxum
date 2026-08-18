@@ -1,15 +1,20 @@
 .footer_div
 {
-    padding-top: 15px;
     justify-content: center;
     width: 100%;
     display: flex;
     gap: 5px;
 }
 
-.sign_up_span
+.first_span
+{
+    font-size: 15px;
+}
+
+.link_span
 {
     color: var( --blue );
     text-decoration: underline;
     cursor: pointer;
+    font-size: 15px;
 }

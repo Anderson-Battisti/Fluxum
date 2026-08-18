@@ -18,14 +18,12 @@ import {motion} from "framer-motion";
 
 export function LoginCard()
 {
-    const sessionStorageKey: string = "fluxum_pending_email";
-    
     const { t } = useTranslation( ["common", "login-screen"] );
     const { addToast }: ToastContextValue = useToast();
     const navigate = useNavigate();
     
-    const [ mode,     setMode     ] = useState<CardModes>( getInitialCardMode() );
-    const [ email,    setEmail    ] = useState<string>( getInitialEmail() );
+    const [ mode,     setMode     ] = useState<CardModes>( CardModes.LOGIN_MODE );
+    const [ email,    setEmail    ] = useState<string>( "" );
     const [ password, setPassword ] = useState<string>( "" );
     const [ confirmationPassword, setConfirmationPassword ] = useState<string>( "" );
     const [ code, setCode ] = useState<string>( "" );
@@ -33,43 +31,23 @@ export function LoginCard()
     
     const mainButtonLabel: string = t( mode === CardModes.LOGIN_MODE   ? "login-screen:login" : 
                                        mode === CardModes.SIGN_UP_MODE ? "login-screen:create_account" : 
-                                                                         "login-screen:verify_code" )
-    
-    function getInitialCardMode(): CardModes
-    {
-        const savedEmail: string | null = sessionStorage.getItem( sessionStorageKey );
-        
-        return savedEmail !== null ? CardModes.VERIFYING_MODE : CardModes.LOGIN_MODE;
-    }
-    
-    function getInitialEmail(): string
-    {
-        return sessionStorage.getItem( sessionStorageKey ) ?? "";
-    }
+                                                                         "login-screen:verify_code" );
     
     async function handleMainButtonClick()
     {
         if ( mode === CardModes.VERIFYING_MODE )
         {
-            let localStorageEmail: string | null = localStorage.getItem( sessionStorageKey );
-            
-            if ( localStorageEmail === null )
-            {
-                setMode( CardModes.LOGIN_MODE ); return;
-            }
-            
-            const response = await fetch( `${import.meta.env.VITE_API_URL}/auth/check-verification-code`,
-                                           {
-                                               method: "POST",
-                                               headers: { "Content-Type": "application/json" },
-                                               body: JSON.stringify( { email: localStorageEmail, code } ),
-                                           } );
+            console.log( code );
+            const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/check-verification-code`,
+                                             {
+                                                 method: "POST",
+                                                 headers: { "Content-Type": "application/json" },
+                                                 body: JSON.stringify( { email, verificationCode: code } ),
+                                             } );
             
             if ( response.ok )
             {
                 addToast( t( "login-screen:code_successfully_verified_you_can_now_login_and_start_using_fluxum" ), ToastVariant.SUCCESS );
-                
-                sessionStorage.removeItem( sessionStorageKey );
                 
                 setMode( CardModes.LOGIN_MODE ); return;
             }
@@ -155,17 +133,10 @@ export function LoginCard()
                 addToast( t( "login-screen:please_enter_your_full_name_to_register" ), ToastVariant.WARNING ); return;
             }
             
-            const response = await fetch( `${import.meta.env.VITE_API_URL}/auth/send-verification-code`,
-                                           {
-                                               method: "POST",
-                                               headers: { "Content-Type": "application/json" },
-                                               body: JSON.stringify( { email, password, name: userCompleteName } )
-                                           } );
+            const response = await requestVerificationCode();
             
             if ( response.ok )
             {
-                sessionStorage.setItem( sessionStorageKey, email );
-                
                 setMode( CardModes.VERIFYING_MODE ); return;
             }
             
@@ -188,10 +159,37 @@ export function LoginCard()
         }
     }
     
+    async function requestVerificationCode(): Promise<Response>
+    {
+        return fetch( `${import.meta.env.VITE_API_URL}/auth/send-verification-code`,
+                       {
+                           method: "POST",
+                           headers: { "Content-Type": "application/json" },
+                           body: JSON.stringify( { email, password, name: userCompleteName } )
+                       } );
+    }
+    
+    function setNextMode(): void
+    {
+        const nextMode = mode == CardModes.LOGIN_MODE ? CardModes.SIGN_UP_MODE : CardModes.LOGIN_MODE;
+        
+        setMode( nextMode );
+    }
+    
+    function setVerifyingMode(): void
+    {
+        setMode( CardModes.VERIFYING_MODE );
+    }
+    
+    function sendAnotherVerificationCode(): void
+    {
+        
+    }
+    
     return (
         <motion.div layout transition={ { duration: 0.3, ease: "easeInOut" } } className={ styles.container } >
             <LoginCardHeader />
-            { mode !== CardModes.VERIFYING_MODE && <TextInputField type={ "email"    } placeholder={ "Email" } floatingLabel={ "Email" } onTextChange={ setEmail } /> }
+            { <TextInputField type={ "email"    } placeholder={ "Email" } floatingLabel={ "Email" } onTextChange={ setEmail } /> }
             { mode !== CardModes.VERIFYING_MODE && <TextInputField type={ "password" } placeholder={ t( "password" ) } floatingLabel={ t( "password" ) } onTextChange={ setPassword } /> }
             { mode === CardModes.SIGN_UP_MODE   && <TextInputField type={ "password" } floatingLabel={ t( "login-screen:confirm_password" ) } animatedField={ true } onTextChange={ setConfirmationPassword } /> }
             { mode === CardModes.SIGN_UP_MODE   && <TextInputField type={ "text"     } floatingLabel={ "Nome Completo" } onTextChange={ setUserCompleteName } animatedField={ true } /> }
@@ -199,7 +197,18 @@ export function LoginCard()
             <Button label={ mainButtonLabel } variant={ ButtonVariants.PRIMARY } onClickButton={ handleMainButtonClick } />
             <Separator text={ t( "login-screen:or" ) } />
             <Button label={ t( "login-screen:continue_with_google" ) } variant={ ButtonVariants.SECONDARY } icon={ <FcGoogle /> } onClickButton={ () => {} } />
-            <LoginCardFooter cardMode={ mode } onModeChange={ setMode } />
+            
+            <div style={ { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 5, paddingTop: 10 } }>
+                <LoginCardFooter setClickActionCallback={ setNextMode } 
+                                 firstSpanContent={ mode === CardModes.SIGN_UP_MODE || mode === CardModes.VERIFYING_MODE ? t( "login-screen:already_have_an_account" ) : t( "login-screen:dont_have_an_account" ) } 
+                                 secondSpanContent={ mode === CardModes.SIGN_UP_MODE || mode === CardModes.VERIFYING_MODE ? t( "login-screen:login" ) : t( "login-screen:sign_up" ) } />
+    
+                { mode !== CardModes.VERIFYING_MODE && <LoginCardFooter setClickActionCallback={ setVerifyingMode } 
+                                                                        firstSpanContent={ t( "login-screen:didnt_verify_your_email" ) } 
+                                                                        secondSpanContent={ t( "login-screen:verify_now" ) } /> }
+
+                { /*mode === CardModes.VERIFYING_MODE && <LoginCardFooter setClickActionCallback={ requestVerificationCode } firstSpanContent={ "fe" } secondSpanContent={ "fefe" } /> */}
+            </div>
         </motion.div>
     )
 }

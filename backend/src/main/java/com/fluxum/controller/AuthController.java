@@ -8,6 +8,7 @@ import com.fluxum.dto.auth.UserRegistrationDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.InvalidVerificationCodeException;
+import com.fluxum.exception.authentication.PasswordNotValidException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
 import com.fluxum.exception.authentication.UserEmailNotVerifiedException;
 import com.fluxum.exception.authentication.UserNameNullOrEmptyException;
@@ -94,9 +95,9 @@ public class AuthController
             return ResponseEntity.ok().build();
         }
         
-        catch ( UserNameNullOrEmptyException userNameNullOrEmptyException )
+        catch ( UserNameNullOrEmptyException | PasswordNotValidException usernameOrPasswordNotValidException )
         {
-            return ResponseEntity.status( HttpStatus.UNPROCESSABLE_CONTENT ).body( userNameNullOrEmptyException.getMessage() );
+            return ResponseEntity.status( HttpStatus.UNPROCESSABLE_CONTENT ).body( usernameOrPasswordNotValidException.getMessage() );
         }
         
         catch ( UserAlreadyRegisteredException userAlreadyRegisteredException )

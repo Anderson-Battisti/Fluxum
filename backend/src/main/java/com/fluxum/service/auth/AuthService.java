@@ -7,6 +7,7 @@ import com.fluxum.dto.auth.AuthTokensDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.InvalidVerificationCodeException;
+import com.fluxum.exception.authentication.PasswordNotValidException;
 import com.fluxum.exception.authentication.UserAlreadyRegisteredException;
 import com.fluxum.exception.authentication.UserEmailNotVerifiedException;
 import com.fluxum.exception.authentication.UserNameNullOrEmptyException;
@@ -77,9 +78,16 @@ public class AuthService
             throw new UserAlreadyRegisteredException( "This email is already registered in the database!" );
         }
         
-        if ( name == null || name.isEmpty() )
+        Optional<User> user = userRepository.findByEmail( email );
+             
+        if ( user.isEmpty() && name == null || name.isEmpty() )
         {
             throw new UserNameNullOrEmptyException( "The username cannot be null or empty!" );
+        }
+        
+        if ( user.isEmpty() && password == null || password.length() < 8 || password.length() > 128 )
+        {
+            throw new PasswordNotValidException( "The password provided must not be empty and must be between 8 and 128 characters " );
         }
         
         Optional<VerificationCode> verificationCode = verificationCodesRepository.findByEmail( email );

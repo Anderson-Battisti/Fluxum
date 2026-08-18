@@ -60,7 +60,7 @@ public class SecurityConfig
                                                                                  "/auth/refresh", 
                                                                                  "/auth/register", 
                                                                                  "/auth/send-verification-code", /* all requests except those specified here requires authentication */
-                                                                                 "/check-verification-code",
+                                                                                 "/auth/check-verification-code",
                                                                                  "/error" ) /* It's a spring native route. Added here to avoid 403 forbidden when a not catched exception is thrown by my endpoints */
                                                                .permitAll()
                                                                .anyRequest()
