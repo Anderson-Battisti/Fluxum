@@ -33,6 +33,14 @@ export function LoginCard()
                                        mode === CardModes.SIGN_UP_MODE ? "login-screen:create_account" : 
                                                                          "login-screen:verify_code" );
     
+    const handleKeyDown = async ( event: { key: string; } ) =>
+    {
+        if ( event.key === "Enter" )
+        {
+            await handleMainButtonClick();
+        }
+    }
+    
     async function handleMainButtonClick()
     {
         if ( mode === CardModes.VERIFYING_MODE )
@@ -177,7 +185,7 @@ export function LoginCard()
             
             else if ( response.status === HttpStatus.CONFLICT )
             {
-                addToast( t( "login-screen:we_could_not_create_an_account_because_this_email_is_already_registered_in_the_system" ), ToastVariant.ERROR );
+                addToast( t( "login-screen:this_email_is_already_registered_in_the_system" ), ToastVariant.ERROR );
             }
             
             else if ( response.status === HttpStatus.UNPROCESSABLE_CONTENT )
@@ -212,7 +220,7 @@ export function LoginCard()
     }
     
     return (
-        <motion.div layout transition={ { duration: 0.3, ease: "easeInOut" } } className={ styles.container } >
+        <motion.div layout transition={ { duration: 0.3, ease: "easeInOut" } } className={ styles.container } onKeyDown={ handleKeyDown } >
             
             <LoginCardHeader />
             
