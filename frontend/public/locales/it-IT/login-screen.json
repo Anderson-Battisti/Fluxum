@@ -26,5 +26,10 @@
     "there_is_no_verification_code_associated_with_this_email_address_please_sign_up_to_start_using_fluxum": "Non esiste alcun codice di verifica associato a questo indirizzo email. Registrati per iniziare a utilizzare Fluxum!",
     "please_enter_your_full_name_to_register": "Per favore, inserisci il tuo nome completo per registrarti",
     "we_could_not_create_an_account_because_this_email_is_already_registered_in_the_system": "Non è stato possibile creare un account perché questo indirizzo email è già registrato nel sistema",
-    "login_failed_email_not_yet_verified": "Accesso non riuscito, email non ancora verificata"
+    "login_failed_email_not_yet_verified": "Accesso non riuscito, email non ancora verificata",
+    "we_sent_a_verification_code_to_your_email_check_your_inbox": "Abbiamo inviato un codice di verifica alla tua e-mail. Controlla la tua casella di posta",
+    "didnt_receive_the_code": "Non hai ricevuto il codice?",
+    "resend_code": "Reinvia codice",
+    "there_is_no_account_registered_with_this_email_please_sign_up": "Non c'è alcun account registrato con questa email. Per favore, registrati",
+    "enter_a_valid_email_to_resend_the_code": "Inserisci un'email valida per reinviare il codice"
 }

@@ -37,7 +37,6 @@ export function LoginCard()
     {
         if ( mode === CardModes.VERIFYING_MODE )
         {
-            console.log( code );
             const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/check-verification-code`,
                                              {
                                                  method: "POST",
@@ -75,7 +74,7 @@ export function LoginCard()
             }
         }
         
-        if ( !email.includes( "." ) || !email.includes( "@" ) )
+        if ( !isEmailFieldValid() )
         {
             addToast( t( "login-screen:provide_a_valid_email_warning" ), ToastVariant.WARNING ); return;
         }
@@ -133,40 +132,71 @@ export function LoginCard()
                 addToast( t( "login-screen:please_enter_your_full_name_to_register" ), ToastVariant.WARNING ); return;
             }
             
-            const response = await requestVerificationCode();
+            await requestVerificationCode();
+        }
+    }
+    
+    function isEmailFieldValid(): boolean
+    {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        return emailRegex.test( email );
+    }
+    
+    async function requestAnotherVerificationCode()
+    {
+        setUserCompleteName( "" );
+        
+        await requestVerificationCode();
+    }
+    
+    async function requestVerificationCode(): Promise<void>
+    {
+        if ( isEmailFieldValid() )
+        {
+            const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/send-verification-code`,
+                                                     {
+                                                         method: "POST",
+                                                         headers: { "Content-Type": "application/json" },
+                                                         body: JSON.stringify( { email, password, name: userCompleteName } )
+                                                     } );
             
             if ( response.ok )
             {
-                setMode( CardModes.VERIFYING_MODE ); return;
+                setMode( CardModes.VERIFYING_MODE );
+                
+                addToast( t( "login-screen:we_sent_a_verification_code_to_your_email_check_your_inbox" ) );
             }
             
             else if ( response.status === HttpStatus.TOO_MANY_REQUESTS )
             {
                 addToast( t( "login-screen:please_wait_before_requesting_another_verification_code" ), ToastVariant.WARNING );
                 
-                setMode( CardModes.VERIFYING_MODE ); return;
+                setMode( CardModes.VERIFYING_MODE );
             }
             
             else if ( response.status === HttpStatus.CONFLICT )
             {
-                addToast( t( "login-screen:we_could_not_create_an_account_because_this_email_is_already_registered_in_the_system" ), ToastVariant.ERROR ); return;
+                addToast( t( "login-screen:we_could_not_create_an_account_because_this_email_is_already_registered_in_the_system" ), ToastVariant.ERROR );
+            }
+            
+            else if ( response.status === HttpStatus.UNPROCESSABLE_CONTENT )
+            {
+                addToast( t( "login-screen:there_is_no_account_registered_with_this_email_please_sign_up" ) );
+                
+                setMode( CardModes.SIGN_UP_MODE );
             }
             
             else
             {
-                addToast( t( "login-screen:an_error_occurred_while_processing_your_request_please_try_again_later" ), ToastVariant.ERROR ); return;
+                addToast( t( "login-screen:an_error_occurred_while_processing_your_request_please_try_again_later" ), ToastVariant.ERROR );
             }
         }
-    }
-    
-    async function requestVerificationCode(): Promise<Response>
-    {
-        return fetch( `${import.meta.env.VITE_API_URL}/auth/send-verification-code`,
-                       {
-                           method: "POST",
-                           headers: { "Content-Type": "application/json" },
-                           body: JSON.stringify( { email, password, name: userCompleteName } )
-                       } );
+        
+        else
+        {
+            addToast( t( "login-screen:enter_a_valid_email_to_resend_the_code" ), ToastVariant.WARNING );
+        }
     }
     
     function setNextMode(): void
@@ -181,34 +211,44 @@ export function LoginCard()
         setMode( CardModes.VERIFYING_MODE );
     }
     
-    function sendAnotherVerificationCode(): void
-    {
-        
-    }
-    
     return (
         <motion.div layout transition={ { duration: 0.3, ease: "easeInOut" } } className={ styles.container } >
+            
             <LoginCardHeader />
-            { <TextInputField type={ "email"    } placeholder={ "Email" } floatingLabel={ "Email" } onTextChange={ setEmail } /> }
-            { mode !== CardModes.VERIFYING_MODE && <TextInputField type={ "password" } placeholder={ t( "password" ) } floatingLabel={ t( "password" ) } onTextChange={ setPassword } /> }
-            { mode === CardModes.SIGN_UP_MODE   && <TextInputField type={ "password" } floatingLabel={ t( "login-screen:confirm_password" ) } animatedField={ true } onTextChange={ setConfirmationPassword } /> }
-            { mode === CardModes.SIGN_UP_MODE   && <TextInputField type={ "text"     } floatingLabel={ "Nome Completo" } onTextChange={ setUserCompleteName } animatedField={ true } /> }
-            { mode === CardModes.VERIFYING_MODE && <TextInputField type={ "text"     } floatingLabel={ t( "login-screen:verification-code" ) } onTextChange={ setCode } /> }
+            
+            { <TextInputField type={ "email" } placeholder={ "Email" } floatingLabel={ "Email" } onTextChange={ setEmail } /> }
+            
+            { mode !== CardModes.VERIFYING_MODE && 
+                <TextInputField type={ "password" } placeholder={ t( "password" ) } floatingLabel={ t( "password" ) } onTextChange={ setPassword } /> }
+            
+            { mode === CardModes.SIGN_UP_MODE && 
+                <TextInputField type={ "password" } floatingLabel={ t( "login-screen:confirm_password" ) } animatedField={ true } onTextChange={ setConfirmationPassword } /> }
+            
+            { mode === CardModes.SIGN_UP_MODE && 
+                <TextInputField type={ "text" } floatingLabel={ "Nome Completo" } onTextChange={ setUserCompleteName } animatedField={ true } /> }
+            
+            { mode === CardModes.VERIFYING_MODE && 
+                <TextInputField type={ "text" } floatingLabel={ t( "login-screen:verification-code" ) } onTextChange={ setCode } /> }
+            
             <Button label={ mainButtonLabel } variant={ ButtonVariants.PRIMARY } onClickButton={ handleMainButtonClick } />
+            
             <Separator text={ t( "login-screen:or" ) } />
+            
             <Button label={ t( "login-screen:continue_with_google" ) } variant={ ButtonVariants.SECONDARY } icon={ <FcGoogle /> } onClickButton={ () => {} } />
             
             <div style={ { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 5, paddingTop: 10 } }>
+                
                 <LoginCardFooter setClickActionCallback={ setNextMode } 
                                  firstSpanContent={ mode === CardModes.SIGN_UP_MODE || mode === CardModes.VERIFYING_MODE ? t( "login-screen:already_have_an_account" ) : t( "login-screen:dont_have_an_account" ) } 
-                                 secondSpanContent={ mode === CardModes.SIGN_UP_MODE || mode === CardModes.VERIFYING_MODE ? t( "login-screen:login" ) : t( "login-screen:sign_up" ) } />
+                                 secondSpanContent={ mode === CardModes.SIGN_UP_MODE || mode === CardModes.VERIFYING_MODE ? t( "login-screen:login" ) : t( "login-screen:sign_up" ) }/>
     
-                { mode !== CardModes.VERIFYING_MODE && <LoginCardFooter setClickActionCallback={ setVerifyingMode } 
-                                                                        firstSpanContent={ t( "login-screen:didnt_verify_your_email" ) } 
-                                                                        secondSpanContent={ t( "login-screen:verify_now" ) } /> }
+                { mode !== CardModes.VERIFYING_MODE &&
+                    <LoginCardFooter setClickActionCallback={ setVerifyingMode } firstSpanContent={ t( "login-screen:didnt_verify_your_email" ) } secondSpanContent={ t( "login-screen:verify_now" ) } /> }
 
-                { /*mode === CardModes.VERIFYING_MODE && <LoginCardFooter setClickActionCallback={ requestVerificationCode } firstSpanContent={ "fe" } secondSpanContent={ "fefe" } /> */}
+                { mode === CardModes.VERIFYING_MODE && 
+                    <LoginCardFooter setClickActionCallback={ requestAnotherVerificationCode } firstSpanContent={ t( "login-screen:didnt_receive_the_code" ) } secondSpanContent={ t( "login-screen:resend_code" ) } /> }
             </div>
+        
         </motion.div>
     )
 }
