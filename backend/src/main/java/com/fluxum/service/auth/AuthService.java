@@ -3,7 +3,7 @@ package com.fluxum.service.auth;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import com.fluxum.dto.auth.AuthTokensDTO;
+import com.fluxum.dto.auth.LoginResponseDTO;
 import com.fluxum.exception.authentication.AuthenticationFailedException;
 import com.fluxum.exception.authentication.CodeRequestBlockedException;
 import com.fluxum.exception.authentication.InvalidVerificationCodeException;
@@ -47,7 +47,7 @@ public class AuthService
         this.emailService = emailService;
     }
     
-    public AuthTokensDTO authenticate( String email, String password ) throws AuthenticationFailedException, UserEmailNotVerifiedException
+    public LoginResponseDTO authenticate( String email, String password ) throws AuthenticationFailedException, UserEmailNotVerifiedException
     {
         AuthenticationFailedException authenticationFailedException = new AuthenticationFailedException( "Authentication failed. Invalid credentials." );
         
@@ -67,7 +67,7 @@ public class AuthService
         String accessToken  = jwtService.generateAccessToken( user.getId() );
         String refreshToken = refreshTokenService.createRefreshToken( user );
         
-        return new AuthTokensDTO( accessToken, refreshToken );
+        return new LoginResponseDTO( accessToken, refreshToken, user.getOnboardingStage() );
     }
     
     @Transactional

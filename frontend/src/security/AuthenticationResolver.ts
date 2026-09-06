@@ -1,10 +1,10 @@
+import { AuthState } from "./AuthState";
+import { HttpStatus } from "../constants/HttpStatus";
+
 /**
  * 
  * @author Anderson Battisti
  */
-import { AuthState } from "./AuthState";
-import { HttpStatus } from "../constants/HttpStatus";
-
 export class AuthenticationResolver
 {
     public static async getAuthState(): Promise<AuthState>

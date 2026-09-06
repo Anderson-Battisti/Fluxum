@@ -15,6 +15,7 @@ import {ToastContextValue} from "../../../contexts/ToastContext";
 import {useNavigate} from "react-router-dom";
 import {HttpStatus} from "../../../constants/HttpStatus";
 import {motion} from "framer-motion";
+import {OnboardingStage} from "./OnboardingStage";
 
 export function LoginCard()
 {
@@ -94,7 +95,7 @@ export function LoginCard()
         
         if ( mode === CardModes.LOGIN_MODE )
         {
-            const response = await fetch( `${import.meta.env.VITE_API_URL}/auth/authenticate`, 
+            const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/authenticate`, 
                                            {
                                                method: "POST",
                                                headers: { "Content-Type": "application/json" },
@@ -102,12 +103,7 @@ export function LoginCard()
                                                credentials: "include"
                                            } );
             
-            if ( response.ok )
-            {
-                navigate( "/dashboard" );
-            }
-            
-            else if ( response.status === HttpStatus.UNAUTHORIZED )
+            if ( response.status === HttpStatus.UNAUTHORIZED )
             {
                 addToast( t( "login-screen:failed_to_log_in_invalid_credentials" ), ToastVariant.WARNING ); return;
             }
@@ -116,6 +112,10 @@ export function LoginCard()
             {
                 addToast( t( "login-screen:login_failed_email_not_yet_verified" ), ToastVariant.WARNING ); return;
             }
+            
+            const onboardingStage: string = await response.json();
+            
+            navigate( onboardingStage === OnboardingStage.INCOME_SOURCES_REGISTERED ? "/dashboard" : "/onboarding-screen" );
         }
         
         else if ( mode === CardModes.SIGN_UP_MODE )

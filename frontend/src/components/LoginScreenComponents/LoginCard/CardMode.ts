@@ -1,3 +1,7 @@
+/**
+ * 
+ * @author Anderson Battisti
+ */
 export enum CardModes
 {
     LOGIN_MODE     = 0,

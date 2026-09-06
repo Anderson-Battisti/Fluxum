@@ -1,7 +1,7 @@
 package com.fluxum.controller;
 
 import com.fluxum.dto.auth.AuthBodyDTO;
-import com.fluxum.dto.auth.AuthTokensDTO;
+import com.fluxum.dto.auth.LoginResponseDTO;
 import com.fluxum.dto.auth.CheckVerificationCodeDTO;
 import com.fluxum.dto.auth.SendVerificationCodeDTO;
 import com.fluxum.dto.auth.UserRegistrationDTO;
@@ -14,6 +14,7 @@ import com.fluxum.exception.authentication.UserEmailNotVerifiedException;
 import com.fluxum.exception.authentication.UserNameNullOrEmptyException;
 import com.fluxum.exception.authentication.VerificationCodeExpiredException;
 import com.fluxum.exception.authentication.VerificationCodeNotFoundException;
+import com.fluxum.model.enums.OnboardingStage;
 import com.fluxum.service.auth.AuthService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,13 +38,13 @@ public class AuthController
     }
     
     @PostMapping( "/authenticate" )
-    public ResponseEntity<Void> authenticate( @RequestBody AuthBodyDTO authBodyDTO )
+    public ResponseEntity<OnboardingStage> authenticate( @RequestBody AuthBodyDTO authBodyDTO )
     {
         try
         {
-            AuthTokensDTO authTokens = authService.authenticate( authBodyDTO.email(), authBodyDTO.password() );
+            LoginResponseDTO loginResponseDTO = authService.authenticate( authBodyDTO.email(), authBodyDTO.password() );
             
-            ResponseCookie accessTokenCookie = ResponseCookie.from( "accessToken", authTokens.accessToken() )
+            ResponseCookie accessTokenCookie = ResponseCookie.from( "accessToken", loginResponseDTO.accessToken() )
                                                              .httpOnly( true )
                                                              .secure( false ) /* in production environment make it true! important! */
                                                              .sameSite( "Strict" )
@@ -51,7 +52,7 @@ public class AuthController
                                                              .path( "/" )
                                                              .build();
             
-            ResponseCookie refreshTokenCookie = ResponseCookie.from( "refreshToken", authTokens.refreshToken() )
+            ResponseCookie refreshTokenCookie = ResponseCookie.from( "refreshToken", loginResponseDTO.refreshToken() )
                                                               .httpOnly( true )
                                                               .secure( false ) /* in production environment make it true! important! */
                                                               .sameSite( "Strict" ) /* Only attach the cookie  */
@@ -61,7 +62,7 @@ public class AuthController
             
             return ResponseEntity.ok().header( HttpHeaders.SET_COOKIE, accessTokenCookie.toString() )
                                       .header( HttpHeaders.SET_COOKIE, refreshTokenCookie.toString() )
-                                      .build();
+                                      .body( loginResponseDTO.onboardingStage() );
         }
         
         catch ( AuthenticationFailedException exception )

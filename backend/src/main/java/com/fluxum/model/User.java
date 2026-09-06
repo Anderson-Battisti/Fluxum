@@ -72,6 +72,11 @@ public class User
         return password;
     }
     
+    public OnboardingStage getOnboardingStage()
+    {
+        return onboardingStage;
+    }
+    
     public Boolean isEmailVerified()
     {
         return emailVerified;

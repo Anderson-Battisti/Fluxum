@@ -1,0 +1,11 @@
+/**
+ * 
+ * @author Anderson Battisti
+ */
+export enum OnboardingStage
+{
+    NOT_STARTED = "NOT_STARTED",
+    CURRENCY_SELECTED = "CURRENCY_SELECTED",
+    BANKS_SELECTED = "BANKS_SELECTED",
+    INCOME_SOURCES_REGISTERED = "INCOME_SOURCES_REGISTERED"
+}

@@ -1,3 +1,7 @@
+/**
+ * @author Anderson Battisti
+ */
+
 export enum ToastVariant
 {
     INFO    = 'info',
