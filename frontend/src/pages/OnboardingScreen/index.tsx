@@ -1,8 +1,11 @@
+import styles from '../../../styles/shared/screenBackground.module.css'
+import {CurrencySelectorCard} from "../../components/OnboardingScreen/OnboardingCards/CurrencySelectorCard";
+
 export function OnboardingScreen()
 {
     return(
-        <>
-            <label>The onboarding screen</label>
-        </>
+        <div className={ styles.container }>
+            <CurrencySelectorCard />
+        </div>
     )
 }

@@ -1,6 +1,6 @@
 .container
 {
-    background-image: url( '../../assets/fluxum-login-background.png' );
+    background-image: url( '../../src/assets/fluxum-login-background.png' );
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;

@@ -1,5 +1,5 @@
-import styles from './styles.module.css';
-import { LoginCard } from '../../components/LoginScreenComponents/LoginCard';
+import styles from '../../../styles/shared/screenBackground.module.css';
+import { LoginCard } from '../../components/LoginScreen/LoginCard';
 
 export function LoginScreen()
 {

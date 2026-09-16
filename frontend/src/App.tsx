@@ -3,6 +3,7 @@ import { LoginScreen } from "./pages/LoginScreen";
 import { Dashboard } from "./pages/Dashboard";
 import ProtectedRoute from "./security/ProtectedRoute";
 import PublicRoute from "./security/PublicRoute";
+import {OnboardingScreen} from "./pages/OnboardingScreen";
 
 export default function App() 
 {
@@ -20,6 +21,7 @@ export default function App()
             {/* All routes inside ProtectedRoute element are protected and will check if the user is authenticated */}
             <Route element={ <ProtectedRoute /> } >
                 <Route path="/dashboard" element={ <Dashboard /> } />
+                <Route path="/onboarding-screen" element={ <OnboardingScreen /> } />
             </Route>
 
             {/* This route will redirect the user to the dashboard if the url is not valid (if any of the routes above correspond to the url), to avoid white page */}

@@ -1,0 +1,19 @@
+.card_header_container
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.card_header_title
+{
+    cursor: default;
+    font-size: 30px;
+    background: linear-gradient( to right, var( --primary ), var( --violet ) );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card_header_subtitle
+{
+    color: var( --text-dark-muted );
+}

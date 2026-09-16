@@ -1,0 +1,13 @@
+.container
+{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    min-height: 400px;
+    min-width: 800px;
+    background-color: var( --white );
+    padding: 35px 25px 25px 25px;
+    gap: 25px;
+    border-radius: 15px;
+    user-select: none;
+}

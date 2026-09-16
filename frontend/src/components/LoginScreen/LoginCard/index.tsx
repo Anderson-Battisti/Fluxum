@@ -47,11 +47,11 @@ export function LoginCard()
         if ( mode === CardModes.VERIFYING_MODE )
         {
             const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/check-verification-code`,
-                                             {
-                                                 method: "POST",
-                                                 headers: { "Content-Type": "application/json" },
-                                                 body: JSON.stringify( { email, verificationCode: code } ),
-                                             } );
+                                                    {
+                                                        method: "POST",
+                                                        headers: { "Content-Type": "application/json" },
+                                                        body: JSON.stringify( { email, verificationCode: code } ),
+                                                    } );
             
             if ( response.ok )
             {
@@ -96,12 +96,12 @@ export function LoginCard()
         if ( mode === CardModes.LOGIN_MODE )
         {
             const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/authenticate`, 
-                                           {
-                                               method: "POST",
-                                               headers: { "Content-Type": "application/json" },
-                                               body: JSON.stringify( { email, password } ),
-                                               credentials: "include"
-                                           } );
+                                                    {
+                                                        method: "POST",
+                                                        headers: { "Content-Type": "application/json" },
+                                                        body: JSON.stringify( { email, password } ),
+                                                        credentials: "include"
+                                                    } );
             
             if ( response.status === HttpStatus.UNAUTHORIZED )
             {
@@ -151,7 +151,7 @@ export function LoginCard()
         return emailRegex.test( email );
     }
     
-    async function requestAnotherVerificationCode()
+    async function requestAnotherVerificationCode() 
     {
         setUserCompleteName( "" );
         
@@ -163,11 +163,11 @@ export function LoginCard()
         if ( isEmailFieldValid() )
         {
             const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/send-verification-code`,
-                                                     {
-                                                         method: "POST",
-                                                         headers: { "Content-Type": "application/json" },
-                                                         body: JSON.stringify( { email, password, name: userCompleteName } )
-                                                     } );
+                                                    {
+                                                        method: "POST",
+                                                        headers: { "Content-Type": "application/json" },
+                                                        body: JSON.stringify( { email, password, name: userCompleteName } )
+                                                    } );
             
             if ( response.ok )
             {
