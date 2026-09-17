@@ -1,0 +1,10 @@
+.circle_container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var( --blue );
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+}

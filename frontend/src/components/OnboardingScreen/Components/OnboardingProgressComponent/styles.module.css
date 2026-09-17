@@ -1,0 +1,16 @@
+.container
+{
+    display: flex;
+}
+
+.circle_label_container
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.checked_icon
+{
+    color: var( --white );
+}
