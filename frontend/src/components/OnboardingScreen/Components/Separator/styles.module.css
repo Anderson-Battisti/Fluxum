@@ -1,0 +1,28 @@
+@property --separator-height 
+{
+    syntax: "<length> | <percentage>";
+    inherits: false;
+    initial-value: 1px;
+}
+
+@property --separator-width 
+{
+    syntax: "<length> | <percentage>";
+    inherits: false;
+    initial-value: 100%;
+}
+
+@property --separator-color 
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ccc;
+}
+
+.separator
+{
+    height: var( --separator-height );
+    width: var( --separator-width , 100% );
+    background-color: var( --separator-color, var( --gray-500 ) );
+    border-radius: 5px;
+}
