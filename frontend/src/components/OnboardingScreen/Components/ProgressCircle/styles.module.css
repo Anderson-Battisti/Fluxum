@@ -1,9 +1,11 @@
 .circle_container
 {
+    --circle-background-color: transparent; /* Remove CSS warning */
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var( --blue );
+    background-color: var( --circle-background-color, transparent );
     border-radius: 50%;
     height: 28px;
     width: 28px;

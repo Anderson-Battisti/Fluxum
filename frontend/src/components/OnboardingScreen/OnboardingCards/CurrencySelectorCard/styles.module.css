@@ -11,3 +11,8 @@
     border-radius: 15px;
     user-select: none;
 }
+
+.icon
+{
+    color: var( --white );
+}

@@ -16,8 +16,3 @@
 {
     white-space: nowrap;
 }
-
-.checked_icon
-{
-    color: var( --white );
-}
