@@ -1,0 +1,16 @@
+.container
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.title
+{
+    font-size: 18px;
+}
+
+.subtitle
+{
+    font-size: 13px;
+    color: var( --gray-500 );
+}

@@ -3,5 +3,8 @@
     "lets_step_up_your_account_in_a_few_simple_steps": "Configuriamo il tuo account in pochi semplici passaggi",
     "select_currency": "Seleziona Valuta",
     "register_banks": "Aggiungi Banche",
-    "register_income": "Entrate"
+    "register_income": "Entrate",
+    "choose_your_default_currency": "Seleziona la tua valuta predefinita",
+    "set_the_default_currency_for_displaying_values_in_fluxum": "Imposta la valuta predefinita per visualizzare i valori in Fluxum",
+    "you_can_change_this_option_at_any_time": "Puoi modificare questa opzione in qualsiasi momento"
 }
