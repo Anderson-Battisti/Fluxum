@@ -2,7 +2,6 @@ import styles from './styles.module.css'
 
 interface TextInputFieldProps
 {
-    label?: string
     type: "text" | "email" | "password"
     placeholder?: string
     floatingLabel?: string
@@ -10,7 +9,7 @@ interface TextInputFieldProps
     onTextChange: ( text: string ) => void
 }
 
-export function TextInputField( { label, type, placeholder, floatingLabel, animatedField, onTextChange }: TextInputFieldProps )
+export function TextInputField( { type, placeholder, floatingLabel, animatedField, onTextChange }: TextInputFieldProps )
 {
     const handleChange = ( event: { target: { value: string } } ) => 
     {
@@ -18,9 +17,7 @@ export function TextInputField( { label, type, placeholder, floatingLabel, anima
     }
     
     return (
-        <div className={ ` ${ styles.div } ${ animatedField ? styles.animated_field : '' }` } >
-            
-            { label && <label>{ label }</label> }
+        <div className={ `${ styles.div } ${ animatedField ? styles.animated_field : '' }` } >
             
             <input className={ styles.input } type={ type } placeholder={ floatingLabel ? " " : placeholder } onChange={ handleChange } />
             

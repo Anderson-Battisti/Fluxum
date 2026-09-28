@@ -1,9 +1,7 @@
 import styles from './styles.module.css';
-import {IoMdCheckmark} from "react-icons/io";
 import {ProgressCircle} from "../ProgressCircle";
 import {Separator} from "../Separator";
 import {useTranslation} from "react-i18next";
-import {IconType} from "react-icons";
 import {ReactNode} from "react";
 
 interface OnboardingProgressComponentProps

@@ -1,0 +1,63 @@
+.field_container
+{
+    position: relative;
+}
+
+.button
+{
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 15px;
+    outline: none;
+    background-color: var( --white );
+    border: 1px solid var( --primary );
+    
+    text-align: left;
+    cursor: pointer;
+    appearance: none;
+}
+
+.icon_down
+{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.floating_label
+{
+    position: absolute;
+    top: -15%;              
+    left: 10px;
+    font-size: 15px;
+    pointer-events: none;
+    color: var( --primary );
+    background-color: var( --white );
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.options_container
+{
+    list-style-type: none;
+    z-index: 10;
+    background-color: var( --gray-100 );
+    border: 1px solid var( --primary-dark );
+    border-radius: 5px;
+}
+
+.option
+{
+    height: 50px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.option:hover
+{
+    background-color: var( --gray-400 );
+}

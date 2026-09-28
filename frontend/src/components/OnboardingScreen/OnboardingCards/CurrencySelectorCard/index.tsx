@@ -4,6 +4,7 @@ import {OnboardingProgressComponent} from "../../Components/OnboardingProgressCo
 import {RiNumber1, RiNumber2, RiNumber3} from "react-icons/ri";
 import {FieldInformation} from "../../Components/FieldInformation";
 import {useTranslation} from "react-i18next";
+import {Combobox} from "../../../common/Combobox";
 
 export function CurrencySelectorCard()
 {
@@ -17,6 +18,7 @@ export function CurrencySelectorCard()
                                          registerIncomeIcon={ <RiNumber3 className={ styles.icon } size={ 15 } /> }/>
             <FieldInformation title={ t( "choose_your_default_currency" ) } 
                               subtitle={ t( "set_the_default_currency_for_displaying_values_in_fluxum" ) + ". " + t( "you_can_change_this_option_at_any_time" ) + "." } />
+            <Combobox label={ "Currency" } comboboxOptions={ ["teste", "teste2", "teste3"] } />
         </div>
     );
 }
