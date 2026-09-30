@@ -1,9 +1,10 @@
 :root
 {
+    --violet:        #7404e4;
+    --primary-dark:  #160D4A;
     --primary:       #241474;   
     --primary-light: #3B28A3;  
-    --primary-dark:  #160D4A;  
-    --violet:        #7404e4;
+    --primary-50:    #F0EEFA;
     
     --orange-100: #FEF3C7;
     --orange-200: #FCD34D;
@@ -19,6 +20,7 @@
     --cyan-400: #22D3EE;  
     --cyan-500: #06B6D4;
     --blue: #257AD6;
+    --blue-light: #EFF6FF;
 
     --green-500: #22C55E;  
     --red-500:   #EF4444;

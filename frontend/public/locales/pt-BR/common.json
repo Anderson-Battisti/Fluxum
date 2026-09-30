@@ -3,5 +3,10 @@
     "info": "Info",
     "success" : "Sucesso",
     "warning": "Atenção",
-    "error": "Erro"
+    "error": "Erro",
+    "currency": "Moeda",
+    "select": "Selecione",
+    "american_dolar": "Dólar Americano",
+    "brazilian_real": "Real Brasileiro",
+    "euro": "Euro"
 }

@@ -19,6 +19,11 @@
     appearance: none;
 }
 
+.button span
+{
+    justify-content: flex-start;
+}
+
 .icon_down
 {
     position: absolute;
@@ -31,7 +36,7 @@
 .floating_label
 {
     position: absolute;
-    top: -15%;              
+    top: -20%;              
     left: 10px;
     font-size: 15px;
     pointer-events: none;
@@ -45,19 +50,25 @@
 {
     list-style-type: none;
     z-index: 10;
-    background-color: var( --gray-100 );
-    border: 1px solid var( --primary-dark );
-    border-radius: 5px;
+    background-color: var( --white );
+    border: 1px solid var( --primary-50 );
+    border-radius: 10px;
+    margin-top: 2px;
 }
 
 .option
 {
+    display: flex;
+    align-items: center;
     height: 50px;
-    border-radius: 5px;
+    border-radius: 10px;
+    margin: 3px;
     padding: 5px;
+    padding-left: 12px;
+    cursor: pointer;
 }
 
 .option:hover
 {
-    background-color: var( --gray-400 );
+    background-color: var( --primary-50 );
 }

@@ -1,7 +1,12 @@
 {
-  "password": "Password",
-  "info": "Info",
+    "password": "Password",
+    "info": "Info",
     "success" : "Successo",
     "warning": "Attenzione",
-    "error": "Errore"
+    "error": "Errore",
+    "currency": "Valuta",
+    "select": "Seleziona",
+    "american_dolar": "Dollaro Statunitense",
+    "brazilian_real": "Brazilian Real",
+    "euro": "Euro"
 }

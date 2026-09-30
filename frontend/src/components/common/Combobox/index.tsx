@@ -1,21 +1,29 @@
 import styles from './styles.module.css';
 import {FiChevronDown} from "react-icons/fi";
-import {useState} from "react";
-import {autoUpdate, flip, shift, size, useFloating} from "@floating-ui/react";
+import {ReactNode, useState} from "react";
+import {autoUpdate, flip, shift, size, useDismiss, useFloating, useInteractions} from "@floating-ui/react";
+import {useTranslation} from "react-i18next";
 
-interface ComboboxProps
+interface ComboboxProps<T>
 {
     label: string;
-    comboboxOptions: string[];
+    comboboxOptions: T[];
+    getKey: ( item: T ) => string | number;
+    renderOption: ( item: T ) => ReactNode;
+    onSelect?: ( item: T ) => void;
 }
 
-export function Combobox( { label, comboboxOptions }: ComboboxProps )
+export function Combobox<T>( { label, comboboxOptions, getKey, renderOption, onSelect }: ComboboxProps<T> )
 {
     const [ isOpen, setIsOpen ] = useState( false );
+    const [ selected, setSelected ] = useState<T | null>( null );
     
-    const { refs, floatingStyles } = useFloating( 
+    const { t } = useTranslation( "common" );
+    
+    const { refs, floatingStyles, context } = useFloating( 
     {
         open: isOpen,
+        onOpenChange: setIsOpen,
         middleware: 
         [ 
             flip(), 
@@ -27,7 +35,7 @@ export function Combobox( { label, comboboxOptions }: ComboboxProps )
                     {
                         Object.assign( elements.floating.style,
                         {
-                          width: `${ rects.reference.width }px`  
+                            width: `${ rects.reference.width }px`  
                         } );
                     }
                 }
@@ -36,10 +44,23 @@ export function Combobox( { label, comboboxOptions }: ComboboxProps )
         whileElementsMounted: autoUpdate,
     } );
     
+    const dismiss = useDismiss( context );
+    
+    const { getReferenceProps } = useInteractions( [ dismiss ] );
+    
+    const referenceProps: Record<string, unknown> = getReferenceProps( { onClick: () => setIsOpen( open => !open ) } )
+    
+    function handleSelection( item: T )
+    {
+        setSelected( item );
+        setIsOpen( false );
+        onSelect?.( item );
+    }
+    
     return(
         <div>
-            <div ref={ refs.setReference } className={ styles.field_container }>
-                <button onClick={ () => setIsOpen( open => !open ) } className={ styles.button }>Item selecionado</button>
+            <div ref={ refs.setReference } { ...referenceProps } className={ styles.field_container }>
+                <button className={ styles.button }>{ selected ? renderOption( selected ) : t( "select" ) + "..." }</button>
                 <FiChevronDown className={ styles.icon_down }/>
                 <label className={ styles.floating_label }>{ label }</label>
             </div>
@@ -47,7 +68,7 @@ export function Combobox( { label, comboboxOptions }: ComboboxProps )
             { isOpen && comboboxOptions.length > 0 &&
                 ( 
                     <ul ref={ refs.setFloating } style={ floatingStyles } className={ styles.options_container }>
-                        { comboboxOptions.map( option => ( <li key={ option } className={ styles.option }>{ option }</li> ) ) } 
+                        { comboboxOptions.map( option => ( <li key={ getKey( option ) } className={ styles.option } onClick={ () => handleSelection( option ) }>{ renderOption( option ) }</li> ) ) }
                     </ul>
                 )
             }
