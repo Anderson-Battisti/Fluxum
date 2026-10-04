@@ -1,5 +1,5 @@
 import styles from './styles.module.css';
-import {FiChevronDown} from "react-icons/fi";
+import {FiChevronDown, FiChevronUp} from "react-icons/fi";
 import {ReactNode, useState} from "react";
 import {autoUpdate, flip, shift, size, useDismiss, useFloating, useInteractions} from "@floating-ui/react";
 import {useTranslation} from "react-i18next";
@@ -61,7 +61,7 @@ export function Combobox<T>( { label, comboboxOptions, getKey, renderOption, onS
         <div>
             <div ref={ refs.setReference } { ...referenceProps } className={ styles.field_container }>
                 <button className={ styles.button }>{ selected ? renderOption( selected ) : t( "select" ) + "..." }</button>
-                <FiChevronDown className={ styles.icon_down }/>
+                { isOpen ? <FiChevronUp className={ styles.open_closed_icon } /> : <FiChevronDown className={ styles.open_closed_icon }/> }
                 <label className={ styles.floating_label }>{ label }</label>
             </div>
             

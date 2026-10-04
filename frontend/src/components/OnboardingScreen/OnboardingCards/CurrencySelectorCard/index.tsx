@@ -7,20 +7,30 @@ import {useTranslation} from "react-i18next";
 import {Combobox} from "../../../common/Combobox";
 import {CURRENCIES} from "../../../../models/Currency";
 import { Currency } from '../../../../models/Currency'
+import {useState} from "react";
 
 export function CurrencySelectorCard()
 {
     const { t } = useTranslation( [ "common", "onboarding" ] );
     
+    const [ selectedCurrency, setSelectedCurrency ] = useState<Currency | null>( null ); // to start with the database value
+    
     return(
         <div className={ styles.container }>
+            
             <OnboardingCardHeader />
             <OnboardingProgressComponent selectCurrencyIcon={ <RiNumber1 className={ styles.icon } size={ 15 } /> }
                                          registerBanksIcon={ <RiNumber2 className={ styles.icon } size={ 15 } /> }
                                          registerIncomeIcon={ <RiNumber3 className={ styles.icon } size={ 15 } /> }/>
+            
             <FieldInformation title={ t( "onboarding:choose_your_default_currency" ) } 
                               subtitle={ t( "onboarding:set_the_default_currency_for_displaying_values_in_fluxum" ) + ". " + t( "onboarding:you_can_change_this_option_at_any_time" ) + "." } />
-            <Combobox<Currency> label={ t( "common:currency" ) } comboboxOptions={ CURRENCIES } getKey={ item => item.id } renderOption={ item => <CurrencyOptionContent currency={ item } /> } />
+            
+            <Combobox<Currency> label={ t( "common:currency" ) } 
+                                comboboxOptions={ CURRENCIES } 
+                                getKey={ item => item.id } 
+                                renderOption={ item => <CurrencyOptionContent currency={ item } /> }
+                                onSelect={ selectedCurrency => setSelectedCurrency( selectedCurrency ) }/>
         </div>
     );
     

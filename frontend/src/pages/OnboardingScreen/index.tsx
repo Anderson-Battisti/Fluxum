@@ -3,6 +3,8 @@ import {CurrencySelectorCard} from "../../components/OnboardingScreen/Onboarding
 
 export function OnboardingScreen()
 {
+    
+    
     return(
         <div className={ styles.container }>
             <CurrencySelectorCard />
