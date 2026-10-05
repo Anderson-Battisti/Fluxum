@@ -1,0 +1,39 @@
+.error_card_overlay
+{
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur( 6px );
+    background: rgba( 0, 0, 0, 0.15 );
+    z-index: 9999;
+}
+
+.card
+{
+    width: 500px;
+    height: 200px;
+    background-color: var( --white );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 10px;
+}
+
+.icon_message
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 60%;
+}
+
+.message
+{
+    font-size: 16px;
+    text-align: center;
+}
