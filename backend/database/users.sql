@@ -8,5 +8,6 @@ create table users
 	created_at				 datetime not null default current_timestamp,
 	updated_at 				 datetime not null default current_timestamp on update current_timestamp,
 	onboarding_stage         tinyint  not null default 0,
-    email_verified           boolean  not null default false   
+    email_verified           boolean  not null default false,
+    currency                 varchar(3) not null default 'BRL' check ( currency in ( 'USD', 'BRL', 'EUR' ) )
 );

@@ -38,7 +38,7 @@ public class AuthController
     }
     
     @PostMapping( "/authenticate" )
-    public ResponseEntity<OnboardingStage> authenticate( @RequestBody AuthBodyDTO authBodyDTO )
+    public ResponseEntity<Integer> authenticate( @RequestBody AuthBodyDTO authBodyDTO )
     {
         try
         {
@@ -62,7 +62,7 @@ public class AuthController
             
             return ResponseEntity.ok().header( HttpHeaders.SET_COOKIE, accessTokenCookie.toString() )
                                       .header( HttpHeaders.SET_COOKIE, refreshTokenCookie.toString() )
-                                      .body( loginResponseDTO.onboardingStage() );
+                                      .body( loginResponseDTO.onboardingStage().getStage() );
         }
         
         catch ( AuthenticationFailedException exception )

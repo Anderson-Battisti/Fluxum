@@ -7,16 +7,16 @@ import {useTranslation} from "react-i18next";
 interface ComboboxProps<T>
 {
     label: string;
-    comboboxOptions: T[];
+    comboboxOptions: readonly T[];
+    value: T | null;
     getKey: ( item: T ) => string | number;
     renderOption: ( item: T ) => ReactNode;
-    onSelect?: ( item: T ) => void;
+    onSelect: ( item: T ) => void;
 }
 
-export function Combobox<T>( { label, comboboxOptions, getKey, renderOption, onSelect }: ComboboxProps<T> )
+export function Combobox<T>( { label, comboboxOptions, value, getKey, renderOption, onSelect }: ComboboxProps<T> )
 {
     const [ isOpen, setIsOpen ] = useState( false );
-    const [ selected, setSelected ] = useState<T | null>( null );
     
     const { t } = useTranslation( "common" );
     
@@ -52,15 +52,14 @@ export function Combobox<T>( { label, comboboxOptions, getKey, renderOption, onS
     
     function handleSelection( item: T )
     {
-        setSelected( item );
         setIsOpen( false );
-        onSelect?.( item );
+        onSelect( item );
     }
     
     return(
         <div>
             <div ref={ refs.setReference } { ...referenceProps } className={ styles.field_container }>
-                <button className={ styles.button }>{ selected ? renderOption( selected ) : t( "select" ) + "..." }</button>
+                <button className={ styles.button }>{ value ? renderOption( value ) : t( "select" ) + "..." }</button>
                 { isOpen ? <FiChevronUp className={ styles.open_closed_icon } /> : <FiChevronDown className={ styles.open_closed_icon }/> }
                 <label className={ styles.floating_label }>{ label }</label>
             </div>

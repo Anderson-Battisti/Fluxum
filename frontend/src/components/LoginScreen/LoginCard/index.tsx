@@ -113,7 +113,7 @@ export function LoginCard()
                 addToast( t( "login-screen:login_failed_email_not_yet_verified" ), ToastVariant.WARNING ); return;
             }
             
-            const onboardingStage: string = await response.json();
+            const onboardingStage: number = await response.json();
             
             navigate( onboardingStage === OnboardingStage.INCOME_SOURCES_REGISTERED ? "/dashboard" : "/onboarding-screen" );
         }

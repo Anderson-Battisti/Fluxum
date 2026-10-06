@@ -3,6 +3,8 @@ package com.fluxum.model;
 import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import com.fluxum.model.enums.Currency;
 import com.fluxum.model.enums.OnboardingStage;
 
 /**
@@ -61,6 +64,10 @@ public class User
     
     @Column( insertable = false )
     private Boolean emailVerified;
+    
+    @Enumerated( EnumType.STRING )
+    @Column( nullable = false )
+    private Currency currency = Currency.BRL;
     
     public Long getId()
     {
