@@ -24,3 +24,10 @@
     justify-content: center;
     gap: 7px;
 }
+
+.button_container
+{
+    display: flex;
+    justify-content: end;
+    padding-top: 25px;
+}

@@ -25,13 +25,15 @@
     font-size: 16px;
 }
 
-.button_primary:hover
+.button_primary:hover,
+.button_tertiary:hover
 {
     filter: brightness( 0.85 );
 }
 
 .button_primary:active,
-.button_secondary:active
+.button_secondary:active,
+.button_tertiary:active
 {
     filter: brightness( 0.65 );
     transition: 0.5s;
@@ -51,5 +53,16 @@
 .button_secondary span
 {
     color: var( --blue );
+    font-size: 15px;
+}
+
+.button_tertiary
+{
+    background-color: var( --blue );
+}
+
+.button_tertiary span
+{
+    color: var( --white );
     font-size: 15px;
 }

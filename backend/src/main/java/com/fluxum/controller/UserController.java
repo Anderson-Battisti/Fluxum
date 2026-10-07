@@ -6,6 +6,8 @@ import com.fluxum.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +37,15 @@ public class UserController
         Currency userCurrency = userService.getUserCurrency( userId );
         
         return ResponseEntity.ok().body( userCurrency );
-    }    
+    }
+    
+    @PatchMapping( "/update-user-currency" )
+    public ResponseEntity<?> updateUserCurrency( Authentication authentication, @RequestBody Currency currency )
+    {
+        Long userId = Long.valueOf( authentication.getName() );
+        
+        userService.updateUserCurrency( userId, currency );
+        
+        return ResponseEntity.noContent().build();
+    }
 }

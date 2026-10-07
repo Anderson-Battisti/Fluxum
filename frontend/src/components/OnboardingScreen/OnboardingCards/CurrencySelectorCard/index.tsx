@@ -9,6 +9,8 @@ import { Currency } from '../../../../models/Currency'
 import {useEffect, useState} from "react";
 import {LoadingSpinner} from "../../../common/LoadingSpinner";
 import {ErrorModal} from "../../../common/ErrorModal";
+import {Button} from "../../../common/Button";
+import {ButtonVariants} from "../../../common/Button/ButtonVariants";
 
 export function CurrencySelectorCard()
 {
@@ -17,6 +19,34 @@ export function CurrencySelectorCard()
     const[ loading, setLoading ] = useState<boolean>( true );
     const[ error, setError ] = useState<boolean>( false );
     const [ selectedCurrency, setSelectedCurrency ] = useState<Currency | null>( null );
+    
+    function performNext()
+    {
+        setLoading( true );
+        
+        fetch( `${import.meta.env.VITE_API_URL}/user/update-user-currency`,
+                {
+                    method: "PATCH",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify( selectedCurrency?.getCodeISO() )
+                } 
+        )
+        .then( response =>
+        {
+            if ( !response.ok )
+            {
+                console.log( "Error: ", response )
+                throw new Error( `HTTP ${ response.status }` );
+            }
+        } )
+        .then( () => 
+        {
+            // todo load next onboarding step
+        } )
+        .catch( () => setError( true ) )
+        .finally( () => setLoading( false ) )
+    }
     
     useEffect( () =>
     {
@@ -75,6 +105,9 @@ export function CurrencySelectorCard()
                                 getKey={ item => item.getCodeISO() }
                                 renderOption={ item => <CurrencyOptionContent currency={ item } /> }
                                 onSelect={ selectedCurrency => setSelectedCurrency( selectedCurrency ) }/>
+            <div className={ styles.button_container }>
+                <Button label={ t( "onboarding:next" ) } variant={ ButtonVariants.TERTIARY } onClickButton={ () => performNext() } width={ "80px" } />
+            </div>
         </div>
     );
     

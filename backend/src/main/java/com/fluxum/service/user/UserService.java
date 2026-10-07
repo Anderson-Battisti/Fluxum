@@ -28,4 +28,14 @@ public class UserService
     {
         return userRepository.findUserCurrencyById( userId ).orElseThrow( () -> new IllegalStateException( "User not found: " + userId ) );
     }
+    
+    public void updateUserCurrency( Long userId, Currency currency )
+    {
+        int affectedRows = userRepository.updateUserCurrency( userId, currency );
+        
+        if ( affectedRows == 0 )
+        {
+            throw new IllegalStateException( "User not found: " + userId );
+        }
+    }
 }

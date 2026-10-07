@@ -10,3 +10,7 @@ Auth Service: Develop a job to delete expired tokens rows from time to time to m
 - [ ] Endpoint POST /auth/logout (revogar refresh token)
 - [ ] Job de limpeza de refresh tokens expirados/revogados
 - [ ] secure: true nos cookies (quando tiver HTTPS em produção)
+
+
+## Bugs
+- Trying to activate a verification code of an existing account will produce a wrong alert prompt

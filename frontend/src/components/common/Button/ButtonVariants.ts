@@ -5,5 +5,6 @@
 export enum ButtonVariants
 {
     PRIMARY   = "button_primary",
-    SECONDARY = "button_secondary"
+    SECONDARY = "button_secondary",
+    TERTIARY  = "button_tertiary"
 }

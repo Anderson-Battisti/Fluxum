@@ -31,6 +31,11 @@ public interface UserRepository
     
     @Modifying
     @Transactional
+    @Query( "update User u set u.currency = :currency where u.id = :userId" )
+    int updateUserCurrency( @Param( "userId" ) Long userId, @Param( "currency" ) Currency currency );
+    
+    @Modifying
+    @Transactional
     @Query( value = "update users set email_verified = true where email = :email", nativeQuery = true )
     int activateEmail( @Param( "email" ) String email );
 }
