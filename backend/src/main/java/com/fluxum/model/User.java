@@ -84,8 +84,18 @@ public class User
         return onboardingStage;
     }
     
+    public void setOnboardingStage( OnboardingStage onboardingStage )
+    {
+        this.onboardingStage = onboardingStage;
+    }
+    
     public Boolean isEmailVerified()
     {
         return emailVerified;
+    }
+    
+    public void setCurrency( Currency currency )
+    {
+        this.currency = currency;
     }
 }

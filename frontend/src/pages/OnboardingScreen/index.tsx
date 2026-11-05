@@ -4,6 +4,7 @@ import {OnboardingStage} from "../../components/LoginScreen/LoginCard/Onboarding
 import {useEffect, useState} from "react";
 import {LoadingSpinner} from "../../components/common/LoadingSpinner";
 import {ErrorModal} from "../../components/common/ErrorModal";
+import {BanksRegisterCard} from "../../components/OnboardingScreen/OnboardingCards/BanksRegisterCard";
 
 export function OnboardingScreen()
 {
@@ -50,8 +51,8 @@ export function OnboardingScreen()
         <div className={ styles.container }>
             { loading && <LoadingSpinner /> }
             { error && <ErrorModal /> }
-            { onboardingStage != null && +onboardingStage === OnboardingStage.NOT_STARTED && <CurrencySelectorCard /> }
-            {/*{ +onboardingStage === OnboardingStage.CURRENCY_SELECTED && //todo }*/}
+            { onboardingStage != null && +onboardingStage === OnboardingStage.NOT_STARTED && <CurrencySelectorCard onNextButtonCallback={ setOnboardingStage } /> }
+            { onboardingStage != null && +onboardingStage === OnboardingStage.CURRENCY_SELECTED && <BanksRegisterCard /> }
             {/*{ +onboardingStage === OnboardingStage.BANKS_SELECTED && //todo }*/}
         </div>
     )

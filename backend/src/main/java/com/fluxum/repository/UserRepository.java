@@ -18,7 +18,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface UserRepository
     extends
-        JpaRepository<User, Integer>
+        JpaRepository<User, Long>
 {
     Optional<User> findByEmail( String email );
     Optional<User> findByEmailAndEmailVerified( String email, boolean emailVerified );
@@ -28,11 +28,6 @@ public interface UserRepository
     
     @Query( "select u.currency from User u where u.id = :userId" )
     Optional<Currency> findUserCurrencyById( @Param( "userId" ) Long userId );
-    
-    @Modifying
-    @Transactional
-    @Query( "update User u set u.currency = :currency where u.id = :userId" )
-    int updateUserCurrency( @Param( "userId" ) Long userId, @Param( "currency" ) Currency currency );
     
     @Modifying
     @Transactional

@@ -11,8 +11,14 @@ import {LoadingSpinner} from "../../../common/LoadingSpinner";
 import {ErrorModal} from "../../../common/ErrorModal";
 import {Button} from "../../../common/Button";
 import {ButtonVariants} from "../../../common/Button/ButtonVariants";
+import {OnboardingStage} from "../../../LoginScreen/LoginCard/OnboardingStage";
 
-export function CurrencySelectorCard()
+interface CurrencySelectorCardProps
+{
+    onNextButtonCallback: ( number: number ) => void;
+}
+
+export function CurrencySelectorCard( { onNextButtonCallback }: CurrencySelectorCardProps )
 {
     const { t } = useTranslation( [ "common", "onboarding" ] );
     
@@ -42,7 +48,7 @@ export function CurrencySelectorCard()
         } )
         .then( () => 
         {
-            // todo load next onboarding step
+            onNextButtonCallback( OnboardingStage.CURRENCY_SELECTED );
         } )
         .catch( () => setError( true ) )
         .finally( () => setLoading( false ) )
@@ -94,7 +100,10 @@ export function CurrencySelectorCard()
             <OnboardingCardHeader />
             <OnboardingProgressComponent selectCurrencyIcon={ <RiNumber1 className={ styles.icon } size={ 15 } /> }
                                          registerBanksIcon={ <RiNumber2 className={ styles.icon } size={ 15 } /> }
-                                         registerIncomeIcon={ <RiNumber3 className={ styles.icon } size={ 15 } /> }/>
+                                         registerIncomeIcon={ <RiNumber3 className={ styles.icon } size={ 15 } /> }
+                                         firstIconBackgroundColor={ "var( --blue )" }
+                                         secondIconBackgroundColor={ "var( --gray-300 )" }
+                                         thirdIconBackgroundColor={ "var( --gray-300 )" }/>
             
             <FieldInformation title={ t( "onboarding:choose_your_default_currency" ) } 
                               subtitle={ t( "onboarding:set_the_default_currency_for_displaying_values_in_fluxum" ) + ". " + t( "onboarding:you_can_change_this_option_at_any_time" ) + "." } />

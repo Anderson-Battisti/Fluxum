@@ -1,9 +1,11 @@
 package com.fluxum.service.user;
 
+import com.fluxum.model.User;
 import com.fluxum.model.enums.Currency;
 import com.fluxum.model.enums.OnboardingStage;
 import com.fluxum.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -29,13 +31,19 @@ public class UserService
         return userRepository.findUserCurrencyById( userId ).orElseThrow( () -> new IllegalStateException( "User not found: " + userId ) );
     }
     
+    /* Important: the database operation is being concluded here, spring is in charge to do it, this happens because @Transactional opens
+       a database connection and if no exception occurs, so the operation is commited in database, otherwise a rollback() is executed 
+    */
+    @Transactional
     public void updateUserCurrency( Long userId, Currency currency )
     {
-        int affectedRows = userRepository.updateUserCurrency( userId, currency );
+        User user = userRepository.findById( userId ).orElseThrow( () -> new IllegalStateException( "User not found for id: " + userId ) );
         
-        if ( affectedRows == 0 )
+        user.setCurrency( currency );
+        
+        if ( user.getOnboardingStage() == OnboardingStage.NOT_STARTED )
         {
-            throw new IllegalStateException( "User not found: " + userId );
+            user.setOnboardingStage( OnboardingStage.CURRENCY_SELECTED );
         }
     }
 }
