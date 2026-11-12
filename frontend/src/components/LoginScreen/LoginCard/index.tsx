@@ -95,27 +95,37 @@ export function LoginCard()
         
         if ( mode === CardModes.LOGIN_MODE )
         {
-            const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/authenticate`, 
-                                                    {
-                                                        method: "POST",
-                                                        headers: { "Content-Type": "application/json" },
-                                                        body: JSON.stringify( { email, password } ),
-                                                        credentials: "include"
-                                                    } );
-            
-            if ( response.status === HttpStatus.UNAUTHORIZED )
+            try
             {
-                addToast( t( "login-screen:failed_to_log_in_invalid_credentials" ), ToastVariant.WARNING ); return;
+                const response: Response = await fetch( `${import.meta.env.VITE_API_URL}/auth/authenticate`, 
+                                                        {
+                                                            method: "POST",
+                                                            headers: { "Content-Type": "application/json" },
+                                                            body: JSON.stringify( { email, password } ),
+                                                            credentials: "include"
+                                                        } );
+                
+                console.log( response );
+                
+                if ( response.status === HttpStatus.UNAUTHORIZED )
+                {
+                    addToast( t( "login-screen:failed_to_log_in_invalid_credentials" ), ToastVariant.WARNING ); return;
+                }
+                
+                else if ( response.status === HttpStatus.FORBIDDEN )
+                {
+                    addToast( t( "login-screen:login_failed_email_not_yet_verified" ), ToastVariant.WARNING ); return;
+                }
+                
+                const onboardingStage: number = await response.json();
+                
+                navigate( onboardingStage === OnboardingStage.INCOME_SOURCES_REGISTERED ? "/dashboard" : "/onboarding-screen" );
             }
             
-            else if ( response.status === HttpStatus.FORBIDDEN )
+            catch ( error )
             {
-                addToast( t( "login-screen:login_failed_email_not_yet_verified" ), ToastVariant.WARNING ); return;
+                addToast( t( "login-screen:an_internal_error_occurred_please_try_again_later" ), ToastVariant.ERROR )
             }
-            
-            const onboardingStage: number = await response.json();
-            
-            navigate( onboardingStage === OnboardingStage.INCOME_SOURCES_REGISTERED ? "/dashboard" : "/onboarding-screen" );
         }
         
         else if ( mode === CardModes.SIGN_UP_MODE )

@@ -7,5 +7,10 @@
     "choose_your_default_currency": "Seleziona la tua valuta predefinita",
     "set_the_default_currency_for_displaying_values_in_fluxum": "Imposta la valuta predefinita per visualizzare i valori in Fluxum",
     "you_can_change_this_option_at_any_time": "Puoi modificare questa opzione in qualsiasi momento",
-    "next": "Avanti"
+    "next": "Avanti",
+    "register_your_banks_and_balances": "Registra le tue banche e i tuoi saldi",
+    "add_your_bank_accounts_and_their_current_balances": "Aggiungi i tuoi conti bancari e i relativi saldi attuali",
+    "you_can_skip_this_step_and_add_them_later": "Puoi saltare questo passaggio e aggiungerli in seguito",
+    "bank_name": "Nome Della Banca",
+    "balance": "Saldo"
 }

@@ -1,0 +1,12 @@
+.input_fields_container
+{
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    width: 100%;
+}
+
+.bank_name_input_field
+{
+    width: 70%;
+}

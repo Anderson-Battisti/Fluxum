@@ -31,5 +31,6 @@
     "didnt_receive_the_code": "Didn't receive the code?",
     "resend_code": "Resend code",
     "there_is_no_account_registered_with_this_email_please_sign_up": "There's no account registered with this email. Please sign up",
-    "enter_a_valid_email_to_resend_the_code": "Enter a valid email to resend the code"
+    "enter_a_valid_email_to_resend_the_code": "Enter a valid email to resend the code",
+    "an_internal_error_occurred_please_try_again_later": "An internal server error occurred, please try again later"
 }

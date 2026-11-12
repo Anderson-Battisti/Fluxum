@@ -1,4 +1,4 @@
-import styles from './styles.module.css';
+import shared from '../styles.module.css';
 import {OnboardingCardHeader} from "../../Components/OnboardingCardHeader";
 import {OnboardingProgressComponent} from "../../Components/OnboardingProgressComponent";
 import {RiNumber1, RiNumber2, RiNumber3} from "react-icons/ri";
@@ -95,12 +95,12 @@ export function CurrencySelectorCard( { onNextButtonCallback }: CurrencySelector
     }
     
     return(
-        <div className={ styles.container }>
+        <div className={ shared.container }>
             
             <OnboardingCardHeader />
-            <OnboardingProgressComponent selectCurrencyIcon={ <RiNumber1 className={ styles.icon } size={ 15 } /> }
-                                         registerBanksIcon={ <RiNumber2 className={ styles.icon } size={ 15 } /> }
-                                         registerIncomeIcon={ <RiNumber3 className={ styles.icon } size={ 15 } /> }
+            <OnboardingProgressComponent selectCurrencyIcon={ <RiNumber1 className={ shared.icon } size={ 15 } /> }
+                                         registerBanksIcon={ <RiNumber2 className={ shared.icon } size={ 15 } /> }
+                                         registerIncomeIcon={ <RiNumber3 className={ shared.icon } size={ 15 } /> }
                                          firstIconBackgroundColor={ "var( --blue )" }
                                          secondIconBackgroundColor={ "var( --gray-300 )" }
                                          thirdIconBackgroundColor={ "var( --gray-300 )" }/>
@@ -114,7 +114,7 @@ export function CurrencySelectorCard( { onNextButtonCallback }: CurrencySelector
                                 getKey={ item => item.getCodeISO() }
                                 renderOption={ item => <CurrencyOptionContent currency={ item } /> }
                                 onSelect={ selectedCurrency => setSelectedCurrency( selectedCurrency ) }/>
-            <div className={ styles.button_container }>
+            <div className={ shared.button_container }>
                 <Button label={ t( "onboarding:next" ) } variant={ ButtonVariants.TERTIARY } onClickButton={ () => performNext() } width={ "80px" } />
             </div>
         </div>
@@ -123,7 +123,7 @@ export function CurrencySelectorCard( { onNextButtonCallback }: CurrencySelector
     function CurrencyOptionContent( { currency }: { currency: Currency } )
     {
         return (
-            <span className={ styles.option_content }>
+            <span className={ shared.option_content }>
                 { currency.getIcon() }
                 { t( "common:" + currency.getNameKey() ) }
             </span>

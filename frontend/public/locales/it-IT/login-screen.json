@@ -31,5 +31,6 @@
     "didnt_receive_the_code": "Non hai ricevuto il codice?",
     "resend_code": "Reinvia codice",
     "there_is_no_account_registered_with_this_email_please_sign_up": "Non c'è alcun account registrato con questa email. Per favore, registrati",
-    "enter_a_valid_email_to_resend_the_code": "Inserisci un'email valida per reinviare il codice"
+    "enter_a_valid_email_to_resend_the_code": "Inserisci un'email valida per reinviare il codice",
+    "an_internal_error_occurred_please_try_again_later": "Si è verificato un errore interno del server, riprova più tardi"
 }

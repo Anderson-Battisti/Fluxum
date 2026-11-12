@@ -7,5 +7,10 @@
     "choose_your_default_currency": "Selecione sua moeda padrão",
     "set_the_default_currency_for_displaying_values_in_fluxum": "Defina a moeda padrão para exibição dos valores no Fluxum",
     "you_can_change_this_option_at_any_time": "Você poderá alterar essa opção a qualquer momento",
-    "next": "Avançar"
+    "next": "Avançar",
+    "register_your_banks_and_balances": "Registre seus bancos e saldos",
+    "add_your_bank_accounts_and_their_current_balances": "Adicione suas contas bancárias e seus saldos atuais",
+    "you_can_skip_this_step_and_add_them_later": "Você pode pular essa etapa e adicioná-los depois",
+    "bank_name": "Nome do Banco",
+    "balance": "Saldo"
 }
