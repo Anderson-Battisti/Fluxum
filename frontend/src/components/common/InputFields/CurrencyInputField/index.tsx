@@ -1,37 +1,39 @@
 import styles from '../styles.module.css';
+import {useTranslation} from "react-i18next";
 
 interface CurrencyInputFieldProps
 {
-    type: "text"
-    placeholder?: string
     floatingLabel?: string
     animatedField?: boolean
-    onValueChange: ( cents: number ) => void
-    className?: string;
+    onValueChangeCallback: ( cents: number ) => void
     codeISO: string;
-    value: number;
+    valueInCents: number;
 }
 
-export function CurrencyInputField( { type, placeholder, floatingLabel, animatedField, onValueChange, className = "", codeISO, value }: CurrencyInputFieldProps )
+export function CurrencyInputField( { floatingLabel, animatedField, onValueChangeCallback, codeISO, valueInCents }: CurrencyInputFieldProps )
 {
+    const { i18n } = useTranslation( "onboarding" );
+    
+    const MAX_NUMBER_IN_CENTS: number = 99999999999;
+    
     const handleChange = ( event: { target: { value: string } } ) =>
     {
-        let rawNumber = event.target.value.replace( /\D/g, "" );
+        let rawValueInCents: string = event.target.value.replace( /\D/g, "" );
         
-        onValueChange( Number( rawNumber ) );
+        onValueChangeCallback( Math.min( Number( rawValueInCents ), MAX_NUMBER_IN_CENTS ) );
     }
     
     function getFormatedValue(): string
     {
-        const formatter = new Intl.NumberFormat( "pt-BR", { style: "currency", currency: codeISO } );
+        const formatter = new Intl.NumberFormat( i18n.language, { style: "currency", currency: codeISO } );
         
-        return formatter.format( value / 100 );
+        return formatter.format( valueInCents / 100 );
     }
     
     return (
-        <div className={ `${ styles.div } ${ animatedField ? styles.animated_field : '' } ${ className }` } >
+        <div className={ `${ styles.div } ${ animatedField ? styles.animated_field : '' }` } >
             
-            <input value={ getFormatedValue() } inputMode={ "numeric" } className={ styles.input } type={ type } placeholder={ floatingLabel ? " " : placeholder } onChange={ handleChange } />
+            <input value={ getFormatedValue() } inputMode={ "numeric" } className={ styles.input } type={ "text" } onChange={ handleChange } />
             
             { floatingLabel && <label className={ styles.floating_label } >{ floatingLabel }</label> }
         

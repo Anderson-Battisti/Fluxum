@@ -98,7 +98,7 @@ export function BanksRegisterCard()
                 { bankInputs.map( line => (
                     <div key={ line.id } className={ styles.input_fields_container }>
                         <TextInputField className={ styles.bank_name_input_field } type={ "text" } floatingLabel={ t( "bank_name" ) } onTextChange={ () => updateBankName() } />
-                        <CurrencyInputField type={ "text" } floatingLabel={ t( "balance" ) } onValueChange={ updateBalance } codeISO={ codeISO } value={ currencyFieldValue } />
+                        <CurrencyInputField type={ "text" } floatingLabel={ t( "balance" ) } onValueChangeCallback={ updateBalance } codeISO={ codeISO } valueInCents={ currencyFieldValue } />
                     </div>
                 ) ) }
             </div>
