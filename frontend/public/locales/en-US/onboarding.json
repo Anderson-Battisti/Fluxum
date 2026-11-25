@@ -12,5 +12,6 @@
     "add_your_bank_accounts_and_their_current_balances": "Add your bank accounts and their current balances",
     "you_can_skip_this_step_and_add_them_later": "You can skip this step and add them later",
     "bank_name": "Bank Name",
-    "balance": "Balance"
+    "balance": "Balance",
+    "add_bank": "Add Bank"
 }

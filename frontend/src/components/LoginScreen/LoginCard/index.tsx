@@ -1,6 +1,6 @@
 import styles from './styles.module.css';
 import {LoginCardHeader} from './LoginCardHeader';
-import {TextInputField} from "../../common/TextInputField";
+import {TextInputField} from "../../common/InputFields/TextInputField";
 import {useTranslation} from "react-i18next";
 import {Button} from "../../common/Button";
 import {ButtonVariants} from "../../common/Button/ButtonVariants";

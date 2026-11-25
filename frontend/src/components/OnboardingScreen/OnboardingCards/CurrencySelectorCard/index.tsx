@@ -60,7 +60,7 @@ export function CurrencySelectorCard( { onNextButtonCallback }: CurrencySelector
         {
             credentials: "include"
         } )
-        .then( ( response =>
+        .then( response =>
         {
             if ( !response.ok )
             {
@@ -68,7 +68,7 @@ export function CurrencySelectorCard( { onNextButtonCallback }: CurrencySelector
             }
             
             return response.json();
-        } ) )
+        } )
         .then( ( codeISO: string ) =>
         {
             let currency: Currency | undefined = Currency.getCurrencyByCodeISO( codeISO );

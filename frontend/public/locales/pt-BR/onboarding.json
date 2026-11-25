@@ -12,5 +12,6 @@
     "add_your_bank_accounts_and_their_current_balances": "Adicione suas contas bancárias e seus saldos atuais",
     "you_can_skip_this_step_and_add_them_later": "Você pode pular essa etapa e adicioná-los depois",
     "bank_name": "Nome do Banco",
-    "balance": "Saldo"
+    "balance": "Saldo",
+    "add_bank": "Adicionar Banco"
 }
