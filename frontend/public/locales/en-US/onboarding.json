@@ -13,5 +13,7 @@
     "you_can_skip_this_step_and_add_them_later": "You can skip this step and add them later",
     "bank_name": "Bank Name",
     "balance": "Balance",
-    "add_bank": "Add Bank"
+    "add_bank": "Add Bank",
+    "you_have_reached_the_maximum_number_of_banks": "You have reached the maximum number of banks",
+    "fill_in_all_fields_to_add_a_new_one": "Fill in all fields to add a new one"
 }

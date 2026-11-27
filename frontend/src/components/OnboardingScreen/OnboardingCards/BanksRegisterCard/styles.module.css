@@ -2,8 +2,31 @@
 {
     display: flex;
     align-items: flex-start;
-    gap: 5px;
+    gap: 7px;
     width: 100%;
+    align-items: center;
+}
+
+.input_list_container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.trash_icon
+{
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    
+    transition: all 0.4s ease;
+}
+
+.trash_icon:hover
+{
+    height: 24px;
+    width: 24px;
 }
 
 .bank_name_input_field

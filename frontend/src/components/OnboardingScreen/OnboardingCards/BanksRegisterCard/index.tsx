@@ -15,6 +15,8 @@ import {useToast} from "../../../../hooks/useToast";
 import {ToastVariant} from "../../../common/Toast/Toast";
 import {CurrencyInputField} from "../../../common/InputFields/CurrencyInputField";
 import {Currency} from "../../../../models/Currency";
+import {PiTrashLight} from "react-icons/pi";
+import {motion} from "framer-motion";
 
 export function BanksRegisterCard()
 {
@@ -22,11 +24,11 @@ export function BanksRegisterCard()
     
     const { addToast }: ToastContextValue = useToast();
     
-    const bankInputLine = () => ( { id: crypto.randomUUID(), bankName: "", bankBalance: 0 } );
+    const bankInputLine = () => ( { uuid: crypto.randomUUID(), bankName: "", bankBalance: 0 } );
     
     const [ bankInputs, setBankInputs ] = useState( [ bankInputLine() ] );
     const [ codeISO, setCodeISO ] = useState<string>( Currency.BRL.getCodeISO() );
-    const [ currencyFieldValue, setCurrencyFieldValue ] = useState<number>( 0 );
+    const [ uuidToBalanceMap, setUuidToBalanceMap ] = useState<Map<string, number>>( new Map() );
     
     useEffect( () =>
     {
@@ -58,28 +60,63 @@ export function BanksRegisterCard()
     
     function addBankLine(): void
     {
-        bankInputs.map( bankInput => 
+        const banksLimit: number = 10;
+        
+        const hasEmptyBank = bankInputs.some( bankInput => bankInput.bankName.trim().length === 0 );
+        
+        if ( bankInputs.length >= banksLimit )
         {
-            console.log( bankInput );
-            
-            if ( bankInput.bankName.trim().length == 0 )
+            addToast( t( "you_have_reached_the_maximum_number_of_banks"), ToastVariant.INFO );
+            return;
+        }
+        
+        if ( hasEmptyBank )
+        {
+            addToast( t( "fill_in_all_fields_to_add_a_new_one" ), ToastVariant.INFO ); 
+            return;
+        }
+        
+        setBankInputs( prevState => [ ...prevState, bankInputLine() ] );
+    }
+    
+    function updateBankName( bankName: string, uuid: string ): void
+    {
+        setBankInputs( prevBanks => prevBanks.map( bank => 
+        {
+            if ( bank.uuid === uuid )
             {
-                addToast( "Pode não man! Tem banco vazio e tu quer adicionar mais?", ToastVariant.WARNING ); 
-                return;
+                return { ...bank, bankName: bankName };
             }
             
-            setBankInputs( prevState => [ ...prevState, bankInputLine() ] );
-        } )
+            return bank;
+        } ) )
     }
     
-    function updateBankName(): void
+    function updateBalance( cents: number, uuid: string ): void
     {
+        setUuidToBalanceMap( prevState =>
+        {
+            const updated: Map<string, number> = new Map<string, number>( prevState );
+            
+            updated.set( uuid, cents );
+            
+            return updated;
+        } );
         
+        setBankInputs( prevBanks => prevBanks.map( bank => 
+        {
+            if ( bank.uuid === uuid )
+            {
+                return { ...bank, bankBalance: cents };
+            }
+            
+            return bank;
+        } ) )
     }
     
-    function updateBalance( cents: number ): void
+    function handleBankRemoval( uuid: string )
     {
-        setCurrencyFieldValue( cents );
+        setBankInputs( prevBanks => prevBanks.filter( bank => bank.uuid !== uuid ) );
     }
     
     return(
@@ -92,22 +129,28 @@ export function BanksRegisterCard()
                                          firstIconBackgroundColor={ "var( --blue )" }
                                          secondIconBackgroundColor={ "var( --blue )" }
                                          thirdIconBackgroundColor={ "var( --gray-300 )" } />
-            <FieldInformation title={ t( "register_your_banks_and_balances" ) } 
+            <FieldInformation title={ t( "register_your_banks_and_balances" ) }
                               subtitle={ t( "add_your_bank_accounts_and_their_current_balances" ) + ". " + t( "you_can_skip_this_step_and_add_them_later" ) } />
             <div className={ styles.input_list_container }>
                 { bankInputs.map( line => (
-                    <div key={ line.id } className={ styles.input_fields_container }>
-                        <TextInputField className={ styles.bank_name_input_field } type={ "text" } floatingLabel={ t( "bank_name" ) } onTextChange={ () => updateBankName() } />
-                        <CurrencyInputField type={ "text" } floatingLabel={ t( "balance" ) } onValueChangeCallback={ updateBalance } codeISO={ codeISO } valueInCents={ currencyFieldValue } />
-                    </div>
+                    <motion.div layout transition={ { duration: 0.4, ease: "easeInOut" } }  key={ line.uuid } className={ styles.input_fields_container }>
+                        <TextInputField className={ styles.bank_name_input_field } 
+                                        type={ "text" } 
+                                        floatingLabel={ t( "bank_name" ) } 
+                                        onTextChange={ ( text: string ) => updateBankName( text, line.uuid ) } />
+                        <CurrencyInputField floatingLabel={ t( "balance" ) } 
+                                            onValueChangeCallback={ ( cents: number ) => updateBalance( cents, line.uuid ) } 
+                                            codeISO={ codeISO } 
+                                            valueInCents={ uuidToBalanceMap.get( line.uuid ) ?? 0 } />
+                        { bankInputs.length > 1 && <PiTrashLight className={ styles.trash_icon } onClick={ () => handleBankRemoval( line.uuid ) } /> }
+                    </motion.div>
                 ) ) }
             </div>
-            {/*<div className={ styles.input_fields_container }>*/}
-            {/*    <TextInputField className={ styles.bank_name_input_field } type={ "text" } floatingLabel={ t( "bank_name" ) } onTextChange={ () => {} } />*/}
-            {/*    <TextInputField type={ "text" } floatingLabel={ t( "balance" ) } onTextChange={ () => {} } />*/}
-            {/*</div>*/}
-            {/*{ bankInputs.map(  ) }*/}
-            <Button label={ t( "add_bank" ) } variant={ ButtonVariants.TERTIARY } icon={ <GoPlus color={ "var( --white )" } style={ { width: 22, height: 22 } } /> } onClickButton={ () => addBankLine() } width={ "25%" } />
+            <Button label={ t( "add_bank" ) } 
+                    variant={ ButtonVariants.TERTIARY } 
+                    icon={ <GoPlus color={ "var( --white )" } /> } 
+                    onClickButton={ () => addBankLine() } 
+                    width={ "25%" } />
         </div>
     );
 }

@@ -13,5 +13,7 @@
     "you_can_skip_this_step_and_add_them_later": "Você pode pular essa etapa e adicioná-los depois",
     "bank_name": "Nome do Banco",
     "balance": "Saldo",
-    "add_bank": "Adicionar Banco"
+    "add_bank": "Adicionar Banco",
+    "you_have_reached_the_maximum_number_of_banks": "Você atingiu o limite máximo de bancos",
+    "fill_in_all_fields_to_add_a_new_one": "Preencha todos os campos para adicionar um novo"
 }
